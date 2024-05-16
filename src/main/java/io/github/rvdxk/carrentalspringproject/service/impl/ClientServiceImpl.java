@@ -15,11 +15,15 @@ public class ClientServiceImpl implements ClientService {
 
     private ClientRepository clientRepository;
 
+    public ClientServiceImpl(ClientRepository clientRepository) {
+        this.clientRepository = clientRepository;
+    }
+
     @Override
     public List<ClientDto> getAllClients() {
         List<Client> clientsList = clientRepository.findAll();
         List<ClientDto> clientsDtoList = clientsList.stream()
-                .map((client) -> ClientMapper.mapToStudentDto(client))
+                .map((client) -> ClientMapper.mapToClientDto(client))
                 .collect(Collectors.toUnmodifiableList());
         return clientsDtoList;
     }
@@ -33,7 +37,7 @@ public class ClientServiceImpl implements ClientService {
     @Override
     public ClientDto getClientById(Long clientId) {
         Client client = clientRepository.findById(clientId).get();
-        ClientDto clientDto = ClientMapper.mapToStudentDto(client);
+        ClientDto clientDto = ClientMapper.mapToClientDto(client);
         return clientDto;
     }
 

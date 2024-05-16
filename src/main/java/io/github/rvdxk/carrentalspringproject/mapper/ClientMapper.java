@@ -5,7 +5,7 @@ import io.github.rvdxk.carrentalspringproject.entity.Client;
 
 public class ClientMapper {
 
-    public static ClientDto mapToStudentDto(Client client){
+    public static ClientDto mapToClientDto(Client client){
         ClientDto clientDto = new ClientDto(
                 client.getId(),
                 client.getFirstName(),
