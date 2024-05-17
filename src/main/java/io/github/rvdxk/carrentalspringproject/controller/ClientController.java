@@ -43,7 +43,7 @@ public class ClientController {
     public ResponseEntity<HttpStatus> updateClient(@PathVariable("clientId") Long clientId,
                                @RequestBody ClientDto clientDto){
         clientDto.setId(clientId);
-        clientService.updateClient(clientDto);
+        clientService.updateClient(clientDto, clientId);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 

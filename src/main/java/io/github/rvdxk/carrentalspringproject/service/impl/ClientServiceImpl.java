@@ -2,6 +2,7 @@ package io.github.rvdxk.carrentalspringproject.service.impl;
 
 import io.github.rvdxk.carrentalspringproject.dto.ClientDto;
 import io.github.rvdxk.carrentalspringproject.entity.Client;
+import io.github.rvdxk.carrentalspringproject.exception.ResourceNotFoundException;
 import io.github.rvdxk.carrentalspringproject.mapper.ClientMapper;
 import io.github.rvdxk.carrentalspringproject.repository.ClientRepository;
 import io.github.rvdxk.carrentalspringproject.service.ClientService;
@@ -18,6 +19,8 @@ public class ClientServiceImpl implements ClientService {
     public ClientServiceImpl(ClientRepository clientRepository) {
         this.clientRepository = clientRepository;
     }
+
+
 
     @Override
     public List<ClientDto> getAllClients() {
@@ -36,19 +39,26 @@ public class ClientServiceImpl implements ClientService {
 
     @Override
     public ClientDto getClientById(Long clientId) {
-        Client client = clientRepository.findById(clientId).get();
+        Client client = clientRepository.findById(clientId)
+                .orElseThrow(()-> new ResourceNotFoundException("Client with id " + clientId + " not found"));
         ClientDto clientDto = ClientMapper.mapToClientDto(client);
         return clientDto;
     }
 
     @Override
-    public void updateClient(ClientDto clientDto) {
-        Client client = clientRepository.save(ClientMapper.mapToClient(clientDto));
+    public void updateClient(ClientDto clientDto, Long clientId) {
+        Client client = clientRepository.findById(clientId)
+                .orElseThrow(()-> new ResourceNotFoundException("Client with id " + clientId + " not found"));
+
+        clientRepository.save(ClientMapper.mapToClient(clientDto));
 
     }
 
     @Override
     public void deleteClient(Long clientId) {
+        Client client = clientRepository.findById(clientId)
+                .orElseThrow(()-> new ResourceNotFoundException("Client with id " + clientId + " not found"));
+
         clientRepository.deleteById(clientId);
     }
 }
