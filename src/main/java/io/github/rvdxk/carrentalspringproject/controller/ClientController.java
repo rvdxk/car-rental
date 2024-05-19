@@ -2,6 +2,7 @@ package io.github.rvdxk.carrentalspringproject.controller;
 
 import io.github.rvdxk.carrentalspringproject.dto.ClientDto;
 import io.github.rvdxk.carrentalspringproject.service.ClientService;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -29,7 +30,7 @@ public class ClientController {
 
     @PostMapping("/clients/create")
     @ResponseStatus(HttpStatus.CREATED)
-    public void createClient(@RequestBody ClientDto clientDto){
+    public void createClient(@RequestBody @Valid ClientDto clientDto){
         clientService.createClient(clientDto);
     }
 
@@ -41,7 +42,7 @@ public class ClientController {
 
     @PutMapping("clients/{clientId}")
     public ResponseEntity<HttpStatus> updateClient(@PathVariable("clientId") Long clientId,
-                               @RequestBody ClientDto clientDto){
+                               @RequestBody @Valid ClientDto clientDto){
         clientDto.setId(clientId);
         clientService.updateClient(clientDto, clientId);
         return new ResponseEntity<>(HttpStatus.OK);

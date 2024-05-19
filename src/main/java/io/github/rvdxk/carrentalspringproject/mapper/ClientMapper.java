@@ -11,8 +11,14 @@ public class ClientMapper {
                 client.getFirstName(),
                 client.getLastName(),
                 client.getEmail(),
+                client.getPhoneNumber(),
                 client.getDateOfBirth(),
-                client.getAddress()
+                client.getStreet(),
+                client.getHouseNumber(),
+                client.getLocalNumber(),
+                client.getCity(),
+                client.getPostalCode(),
+                client.getCountry()
         );
         return clientDto;
     }
@@ -23,8 +29,14 @@ public class ClientMapper {
                 clientDto.getFirstName(),
                 clientDto.getLastName(),
                 clientDto.getEmail(),
+                clientDto.getPhoneNumber(),
                 clientDto.getDateOfBirth(),
-                clientDto.getAddress()
+                clientDto.getStreet(),
+                clientDto.getHouseNumber(),
+                clientDto.getLocalNumber(),
+                clientDto.getCity(),
+                clientDto.getPostalCode(),
+                clientDto.getCountry()
         );
         return client;
     }

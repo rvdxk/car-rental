@@ -1,6 +1,8 @@
 package io.github.rvdxk.carrentalspringproject.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -22,8 +24,16 @@ public class Client {
     private String lastName;
     @Column(nullable = false, unique = true)
     private String email;
+    @Column(nullable = false, unique = true)
+    private String phoneNumber;
     @Temporal(TemporalType.DATE)
     private Date dateOfBirth;
-    private String address;
+
+    private String street;
+    private Long houseNumber;
+    private String localNumber;
+    private String city;
+    private String postalCode;
+    private String country;
 
 }
