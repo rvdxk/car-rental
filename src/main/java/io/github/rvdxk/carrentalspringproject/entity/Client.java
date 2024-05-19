@@ -12,7 +12,6 @@ import java.util.Date;
 
 @Getter
 @Setter
-@NoArgsConstructor
 @AllArgsConstructor
 @Entity
 @Table(name = "clients")
@@ -31,7 +30,7 @@ public class Client {
 
     private String street;
     private Long houseNumber;
-    private String localNumber;
+    private String apartmentNumber;
     private String city;
     private String postalCode;
     private String country;

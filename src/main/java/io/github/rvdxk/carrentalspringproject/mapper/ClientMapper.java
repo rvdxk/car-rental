@@ -15,7 +15,7 @@ public class ClientMapper {
                 client.getDateOfBirth(),
                 client.getStreet(),
                 client.getHouseNumber(),
-                client.getLocalNumber(),
+                client.getApartmentNumber(),
                 client.getCity(),
                 client.getPostalCode(),
                 client.getCountry()
@@ -33,7 +33,7 @@ public class ClientMapper {
                 clientDto.getDateOfBirth(),
                 clientDto.getStreet(),
                 clientDto.getHouseNumber(),
-                clientDto.getLocalNumber(),
+                clientDto.getApartmentNumber(),
                 clientDto.getCity(),
                 clientDto.getPostalCode(),
                 clientDto.getCountry()
