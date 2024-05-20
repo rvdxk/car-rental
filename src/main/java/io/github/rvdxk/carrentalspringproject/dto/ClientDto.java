@@ -16,6 +16,7 @@ import java.util.Date;
 @Setter
 @AllArgsConstructor
 public class ClientDto {
+
     private Long id;
     @NotBlank(message = "Please, enter the first name.")
     private String firstName;

@@ -14,6 +14,7 @@ import lombok.Setter;
 @Table(name = "car_parameters")
 //one to one
 public class CarParam {
+
     @Column(nullable = false, unique = true)
     private String plateNumber;
     @Column(nullable = false)
@@ -23,9 +24,9 @@ public class CarParam {
     @Column(nullable = false)
     private String type;
     @Column(nullable = false)
-    private int doorsQuantity;
+    private int numberOfDoors;
     @Column(nullable = false)
-    private int seatsQuantity;
+    private int numberOfSeats;
     @Column(nullable = false)
     private String gearbox;
     @Column(nullable = false)
