@@ -1,8 +1,6 @@
 package io.github.rvdxk.carrentalspringproject.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
@@ -15,12 +13,17 @@ import lombok.Setter;
 //one to one
 public class CarParam {
 
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    private Long carParamId;
     @Column(nullable = false, unique = true)
     private String plateNumber;
     @Column(nullable = false)
-    private String brand;
+    private String make;
     @Column(nullable = false)
     private String model;
+    @Column(nullable = false)
+    private int prodYear;
     @Column(nullable = false)
     private String type;
     @Column(nullable = false)
