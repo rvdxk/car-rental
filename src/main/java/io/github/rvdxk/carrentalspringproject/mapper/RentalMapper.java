@@ -12,7 +12,7 @@ public class RentalMapper {
                 rental.getCarId(),
                 rental.getRentalDate(),
                 rental.getReturnDate(),
-                rental.getTotalCost(),
+                rental.getTotalCost()
         );
         return rentalDto;
     }
