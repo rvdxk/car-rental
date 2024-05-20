@@ -15,13 +15,13 @@ public class Car {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(nullable = false)
-    private String brand;
+    private String make;
     @Column(nullable = false)
     private String model;
     @Column(nullable = false, unique = true)
     private String plateNumber;
     @Column(nullable = false)
-    private int pricePerHour;
+    private int costPerHour;
     @Column(nullable = false)
     private boolean isAvailable;
 }
