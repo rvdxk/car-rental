@@ -1,11 +1,8 @@
 package io.github.rvdxk.carrentalspringproject.entity;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Max;
-import jakarta.validation.constraints.Min;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.Date;
@@ -14,8 +11,8 @@ import java.util.Date;
 @Setter
 @AllArgsConstructor
 @Entity
-@Table(name = "clients")
-public class Client {
+@Table(name = "customer")
+public class Customer {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
