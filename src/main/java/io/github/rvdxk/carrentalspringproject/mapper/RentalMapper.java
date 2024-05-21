@@ -8,8 +8,8 @@ public class RentalMapper {
     public static RentalDto mapToRentalDto(Rental rental) {
         RentalDto rentalDto = new RentalDto(
                 rental.getId(),
-                rental.getCustomerId(),
-                rental.getCarId(),
+                rental.getCustomer(),
+                rental.getCar(),
                 rental.getRentalDate(),
                 rental.getReturnDate(),
                 rental.getTotalCost()
@@ -20,8 +20,8 @@ public class RentalMapper {
     public static Rental mapToRental(RentalDto rentalDto) {
         Rental rental = new Rental(
                 rentalDto.getId(),
-                rentalDto.getCustomerId(),
-                rentalDto.getCarId(),
+                rentalDto.getCustomer(),
+                rentalDto.getCar(),
                 rentalDto.getRentalDate(),
                 rentalDto.getReturnDate(),
                 rentalDto.getTotalCost()
