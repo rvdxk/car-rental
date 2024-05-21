@@ -37,4 +37,7 @@ public class CarParam {
     @Column(nullable = false)
     private String driveWheels;
 
+//    @OneToOne(mappedBy = "carParameters")
+//    private Car car;
+
 }

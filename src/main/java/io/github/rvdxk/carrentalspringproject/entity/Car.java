@@ -27,4 +27,7 @@ public class Car {
     private int costPerHour;
     @Column(nullable = false)
     private boolean isAvailable;
+
+//    @OneToOne(mappedBy = "car")
+//    private CarParam carParam;
 }
