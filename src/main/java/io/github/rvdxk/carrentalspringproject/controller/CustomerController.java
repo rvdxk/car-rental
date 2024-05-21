@@ -4,6 +4,7 @@ import io.github.rvdxk.carrentalspringproject.dto.CustomerDto;
 import io.github.rvdxk.carrentalspringproject.service.CustomerService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
@@ -21,6 +22,7 @@ import java.util.Map;
 @AllArgsConstructor
 public class CustomerController {
 
+    @Autowired
     public CustomerService customerService;
 
     @GetMapping("/customers")
@@ -29,30 +31,31 @@ public class CustomerController {
         return new ResponseEntity<>(customerDtoList, HttpStatus.OK);
     }
 
-    @PostMapping("/customer/create")
+    @PostMapping("/customers/create")
     @ResponseStatus(HttpStatus.CREATED)
     public String createCustomer(@RequestBody @Valid CustomerDto customerDto){
-        customerService.createCustomer(customerDto);
-        return "Customer successfully created!";
+        customerService.addCustomer(customerDto);
+        return "Customer successfully added!";
     }
 
-    @GetMapping("/customer/{CustomerId}")
-    public ResponseEntity<CustomerDto> getCustomerById(@PathVariable("customerId") Long customerId){
+    @GetMapping("/customers/{id}")
+    public CustomerDto getCustomerById(@PathVariable("id") Long customerId){
         CustomerDto customerDto = customerService.getCustomerById(customerId);
-        return new ResponseEntity<>(customerDto, HttpStatus.OK);
+        return customerDto;
     }
 
-    @PutMapping("customer/{customerId}")
-    public String updateCustomer(@PathVariable("customerId") Long customerId,
+    @PutMapping("customers/{id}")
+    public String updateCustomer(@PathVariable("id") Long customerId,
                                @RequestBody @Valid CustomerDto customerDto){
         customerDto.setId(customerId);
         customerService.updateCustomer(customerDto, customerId);
         return "Customer successfully updated!";
     }
 
-    @DeleteMapping("customers/{customerId}")
-    public void deleteCustomer(@PathVariable("customerId")Long customerId){
+    @DeleteMapping("customers/{id}")
+    public String deleteCustomer(@PathVariable("id")Long customerId){
         customerService.deleteCustomer(customerId);
+        return "Customer successfully deleted!";
     }
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)

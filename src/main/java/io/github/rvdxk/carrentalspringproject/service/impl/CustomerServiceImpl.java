@@ -20,8 +20,6 @@ public class CustomerServiceImpl implements CustomerService {
         this.customerRepository = customerRepository;
     }
 
-
-
     @Override
     public List<CustomerDto> getAllCustomers() {
         List<Customer> customersList = customerRepository.findAll();
@@ -32,7 +30,7 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public void createCustomer(CustomerDto customerDto) {
+    public void addCustomer(CustomerDto customerDto) {
         Customer customer = CustomerMapper.mapToCustomer(customerDto);
         customerRepository.save(customer);
     }
