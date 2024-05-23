@@ -2,6 +2,7 @@ package io.github.rvdxk.carrentalspringproject.mapper;
 
 import io.github.rvdxk.carrentalspringproject.dto.CarDto;
 import io.github.rvdxk.carrentalspringproject.entity.Car;
+import io.github.rvdxk.carrentalspringproject.entity.CarParams;
 
 public class CarMapper {
 
@@ -12,7 +13,8 @@ public class CarMapper {
                 car.getModel(),
                 car.getPlateNumber(),
                 car.getCostPerHour(),
-                car.isAvailable()
+                car.isAvailable(),
+                car.getCarParams()
         );
         return carDto;
     }
@@ -24,7 +26,8 @@ public class CarMapper {
                 carDto.getModel(),
                 carDto.getPlateNumber(),
                 carDto.getCostPerHour(),
-                carDto.isAvailable()
+                carDto.isAvailable(),
+                carDto.getCarParams()
         );
         return car;
     }

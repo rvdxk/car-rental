@@ -1,5 +1,6 @@
 package io.github.rvdxk.carrentalspringproject.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -12,14 +13,10 @@ import lombok.Setter;
 @NoArgsConstructor
 @Entity
 @Table(name = "car_parameters")
-//one to one
-public class CarParam {
+public class CarParams {
 
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
-    private Long carParamId;
-    @Column(nullable = false, unique = true)
-    private String plateNumber;
+    private Long id;
     @Column(nullable = false)
     private String make;
     @Column(nullable = false)
@@ -37,7 +34,9 @@ public class CarParam {
     @Column(nullable = false)
     private String driveWheels;
 
-//    @OneToOne(mappedBy = "carParameters")
-//    private Car car;
 
+    @JsonIgnore
+    @PrimaryKeyJoinColumn(name = "id")
+    @OneToOne(mappedBy = "carParams", orphanRemoval = true)
+    private Car car;
 }
