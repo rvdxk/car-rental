@@ -16,6 +16,9 @@ import lombok.Setter;
 public class CarParams {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(unique = true, nullable = false)
+    @JoinColumn(name = "car_params_id", referencedColumnName = "id")
     private Long id;
     @Column(nullable = false)
     private String make;
@@ -36,7 +39,6 @@ public class CarParams {
 
 
     @JsonIgnore
-    @PrimaryKeyJoinColumn(name = "id")
-    @OneToOne(mappedBy = "carParams", orphanRemoval = true)
+    @OneToOne(mappedBy = "carParams")
     private Car car;
 }

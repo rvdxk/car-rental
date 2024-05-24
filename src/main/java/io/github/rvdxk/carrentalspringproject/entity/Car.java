@@ -2,22 +2,21 @@ package io.github.rvdxk.carrentalspringproject.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
+@Builder
 @Table(name = "car")
 public class Car {
 
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
-    @Column(nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(unique = true, nullable = false)
+    @PrimaryKeyJoinColumn(name = "id")
     private Long id;
     @Column(nullable = false)
     private String make;
@@ -31,7 +30,6 @@ public class Car {
     private boolean isAvailable;
 
     @JsonIgnore
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "car_params_id", referencedColumnName = "id")
+    @OneToOne(orphanRemoval = true)
     private CarParams carParams;
 }
