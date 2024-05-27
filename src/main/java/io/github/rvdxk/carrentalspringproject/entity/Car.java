@@ -28,6 +28,8 @@ public class Car {
     private int costPerHour;
     @Column(nullable = false)
     private boolean isAvailable;
+    @Transient
+    private Long carParamsId;
 
     @JsonIgnore
     @OneToOne(orphanRemoval = true)

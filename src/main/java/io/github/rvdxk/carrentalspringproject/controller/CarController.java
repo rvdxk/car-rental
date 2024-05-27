@@ -1,16 +1,15 @@
 package io.github.rvdxk.carrentalspringproject.controller;
 
 import io.github.rvdxk.carrentalspringproject.dto.CarDto;
+import io.github.rvdxk.carrentalspringproject.entity.Car;
 import io.github.rvdxk.carrentalspringproject.entity.CarParams;
 import io.github.rvdxk.carrentalspringproject.service.CarService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -21,9 +20,9 @@ public class CarController {
 
 
     @GetMapping("/cars")
-    public ResponseEntity<List<CarDto>> getAllCars(){
-        List<CarDto> carsDtoList = carService.getAllCars();
-        return new ResponseEntity<>(carsDtoList, HttpStatus.OK);
+    public ResponseEntity<List<Car>> getAllCars(){
+        List<Car> carsList = carService.getAllCars();
+        return new ResponseEntity<>(carsList, HttpStatus.OK);
     }
 
     @PostMapping("/cars/add")
@@ -32,13 +31,12 @@ public class CarController {
         return "Car successfully added!";
     }
 
-    @GetMapping("/cars/reserved-cars")
-    public List<CarDto> getReservedCars(
-            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate rentalDate,
-            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate returnDate) {
-        return carService.getAvailableCars(rentalDate, returnDate);
+    @PostMapping("/cars/{id}/parameters")
+    public String addCarParameters(@PathVariable Long id,
+                                   @RequestBody @Valid CarParams carParams){
+        carService.addCarParams(id, carParams);
+        return "Car parameters successfully added!";
     }
-
 
     @GetMapping("/cars/{id}")
     public CarDto getCarById(@PathVariable("id") Long id){

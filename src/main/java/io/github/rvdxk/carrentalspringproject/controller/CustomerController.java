@@ -31,9 +31,9 @@ public class CustomerController {
         return new ResponseEntity<>(customerDtoList, HttpStatus.OK);
     }
 
-    @PostMapping("/customers/create")
+    @PostMapping("/customers/add")
     @ResponseStatus(HttpStatus.CREATED)
-    public String createCustomer(@RequestBody @Valid CustomerDto customerDto){
+    public String addCustomer(@RequestBody @Valid CustomerDto customerDto){
         customerService.addCustomer(customerDto);
         return "Customer successfully added!";
     }
