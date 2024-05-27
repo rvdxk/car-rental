@@ -2,7 +2,6 @@ package io.github.rvdxk.carrentalspringproject.mapper;
 
 import io.github.rvdxk.carrentalspringproject.dto.CarDto;
 import io.github.rvdxk.carrentalspringproject.entity.Car;
-import io.github.rvdxk.carrentalspringproject.entity.CarParams;
 
 public class CarMapper {
 

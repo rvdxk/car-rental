@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -84,23 +85,61 @@ public class CarServiceImpl implements CarService {
     @Override
     public void updateCar(Long id, CarDto carDto) {
         Car car = carRepository.findById(id)
-                .orElseThrow(()-> new ResourceNotFoundException("Car with id " + id + " not found"));
-        if(car.getCarParams() != null) {
+                .orElseThrow(() -> new ResourceNotFoundException("Car with id " + id + " not found"));
 
-            carParamsRepository.delete(car.getCarParams());
+        car.setMake(carDto.getMake());
+        car.setModel(carDto.getModel());
+        car.setPlateNumber(carDto.getPlateNumber());
+        car.setCostPerHour(carDto.getCostPerHour());
+        car.setAvailable(carDto.isAvailable());
+
+        if (carDto.getCarParams() != null) {
+            CarParams carParams = car.getCarParams();
+            if (carParams == null) {
+                carParams = new CarParams();
+                carParams.setId(id);
+            }
+            carParams.setMake(carDto.getCarParams().getMake());
+            carParams.setModel(carDto.getCarParams().getModel());
+            carParams.setProdYear(carDto.getCarParams().getProdYear());
+            carParams.setType(carDto.getCarParams().getType());
+            carParams.setNumberOfDoors(carDto.getCarParams().getNumberOfDoors());
+            carParams.setNumberOfSeats(carDto.getCarParams().getNumberOfSeats());
+            carParams.setGearbox(carDto.getCarParams().getGearbox());
+            carParams.setDriveWheels(carDto.getCarParams().getDriveWheels());
+
+            car.setCarParams(carParams);
+        } else {
+            car.setCarParams(null);
         }
-        Car updatedCar = CarMapper.mapToCar(carDto);
-        updatedCar.setId(car.getId());
-        carRepository.save(updatedCar);
+        carRepository.save(car);
     }
 
     @Override
     public void updateCarParam(Long id, CarParams carParams) {
-        Car car = carRepository.findById(id)
-                .orElseThrow(()-> new ResourceNotFoundException("Car with id " + id + " not found"));
-        car.setCarParams(carParams);
-        carParamsRepository.save(carParams);
-        carRepository.save(car);
+        Optional<CarParams> existingCarParamsOptional = carParamsRepository.findById(id);
+        if (existingCarParamsOptional.isPresent()) {
+
+            CarParams existingCarParams = existingCarParamsOptional.get();
+
+            existingCarParams.setMake(carParams.getMake());
+            existingCarParams.setModel(carParams.getModel());
+            existingCarParams.setProdYear(carParams.getProdYear());
+            existingCarParams.setType(carParams.getType());
+            existingCarParams.setNumberOfDoors(carParams.getNumberOfDoors());
+            existingCarParams.setNumberOfSeats(carParams.getNumberOfSeats());
+            existingCarParams.setGearbox(carParams.getGearbox());
+            existingCarParams.setDriveWheels(carParams.getDriveWheels());
+
+            carParamsRepository.save(existingCarParams);
+
+            Car car = carRepository.findById(id)
+                    .orElseThrow(() -> new ResourceNotFoundException("Car with id " + id + " not found"));
+            car.setCarParams(existingCarParams);
+            carRepository.save(car);
+        } else {
+            throw new ResourceNotFoundException("CarParams with id " + id + " not found");
+        }
     }
 
     @Override

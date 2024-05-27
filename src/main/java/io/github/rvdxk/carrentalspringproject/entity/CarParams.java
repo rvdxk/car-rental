@@ -1,6 +1,7 @@
 package io.github.rvdxk.carrentalspringproject.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import io.github.rvdxk.carrentalspringproject.constant.Gearbox;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -33,7 +34,8 @@ public class CarParams {
     @Column(nullable = false)
     private int numberOfSeats;
     @Column(nullable = false)
-    private String gearbox;
+    @Enumerated(EnumType.STRING)
+    private Gearbox gearbox;
     @Column(nullable = false)
     private String driveWheels;
 
