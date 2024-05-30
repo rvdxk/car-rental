@@ -19,7 +19,7 @@ public class CarParams {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(unique = true, nullable = false)
-    @JoinColumn(name = "car_params_id", referencedColumnName = "id")
+    @JoinColumn(name = "car_params_id")
     private Long id;
     @Column(nullable = false)
     private String make;

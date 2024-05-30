@@ -16,7 +16,6 @@ public class Car {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(unique = true, nullable = false)
-    @PrimaryKeyJoinColumn(name = "id")
     private Long id;
     @Column(nullable = false)
     private String make;
