@@ -8,26 +8,19 @@ import io.github.rvdxk.carrentalspringproject.mapper.CarMapper;
 import io.github.rvdxk.carrentalspringproject.repository.CarParamsRepository;
 import io.github.rvdxk.carrentalspringproject.repository.CarRepository;
 import io.github.rvdxk.carrentalspringproject.service.CarService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
+@RequiredArgsConstructor
 public class CarServiceImpl implements CarService {
 
-    @Autowired
-    private CarRepository carRepository;
-    @Autowired
-    private CarParamsRepository carParamsRepository;
+    private final CarRepository carRepository;
+    private final CarParamsRepository carParamsRepository;
 
-    public CarServiceImpl(CarRepository carRepository, CarParamsRepository carParamsRepository) {
-        this.carRepository = carRepository;
-        this.carParamsRepository = carParamsRepository;
-    }
 
     @Override
     public List<Car> getAllCars() {
@@ -120,22 +113,22 @@ public class CarServiceImpl implements CarService {
         Optional<CarParams> existingCarParamsOptional = carParamsRepository.findById(id);
         if (existingCarParamsOptional.isPresent()) {
 
-            CarParams existingCarParams = existingCarParamsOptional.get();
+            CarParams updateParams = existingCarParamsOptional.get();
 
-            existingCarParams.setMake(carParams.getMake());
-            existingCarParams.setModel(carParams.getModel());
-            existingCarParams.setProdYear(carParams.getProdYear());
-            existingCarParams.setType(carParams.getType());
-            existingCarParams.setNumberOfDoors(carParams.getNumberOfDoors());
-            existingCarParams.setNumberOfSeats(carParams.getNumberOfSeats());
-            existingCarParams.setGearbox(carParams.getGearbox());
-            existingCarParams.setDriveWheels(carParams.getDriveWheels());
+            updateParams.setMake(carParams.getMake());
+            updateParams.setModel(carParams.getModel());
+            updateParams.setProdYear(carParams.getProdYear());
+            updateParams.setType(carParams.getType());
+            updateParams.setNumberOfDoors(carParams.getNumberOfDoors());
+            updateParams.setNumberOfSeats(carParams.getNumberOfSeats());
+            updateParams.setGearbox(carParams.getGearbox());
+            updateParams.setDriveWheels(carParams.getDriveWheels());
 
-            carParamsRepository.save(existingCarParams);
+            carParamsRepository.save(updateParams);
 
             Car car = carRepository.findById(id)
                     .orElseThrow(() -> new ResourceNotFoundException("Car with id " + id + " not found"));
-            car.setCarParams(existingCarParams);
+            car.setCarParams(updateParams);
             carRepository.save(car);
         } else {
             throw new ResourceNotFoundException("CarParams with id " + id + " not found");
