@@ -1,8 +1,10 @@
 package io.github.rvdxk.carrentalspringproject.entity;
 
+import io.github.rvdxk.carrentalspringproject.constant.RentalStatus;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDate;
@@ -10,6 +12,7 @@ import java.time.LocalDate;
 @Getter
 @Setter
 @AllArgsConstructor
+@NoArgsConstructor
 @Entity
 @Table(name = "rental_information")
 public class RentalInfo {
@@ -22,13 +25,12 @@ public class RentalInfo {
     @JoinColumn(name = "car_id", nullable = false)
     private Long carId;
     @Column(nullable = false)
-    private String make;
-    @Column(nullable = false)
-    private String model;
-    @Column(nullable = false)
     private LocalDate rentalDate;
     @Column(nullable = false)
     private LocalDate returnDate;
     @Column(nullable = false)
     private double totalCost;
+    @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
+    private RentalStatus rentalStatus;
 }
