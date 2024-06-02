@@ -20,7 +20,6 @@ public class CustomerServiceImpl implements CustomerService {
         this.customerRepository = customerRepository;
     }
 
-
     @Override
     public List<CustomerDto> getAllCustomers() {
         List<Customer> customersList = customerRepository.findAll();

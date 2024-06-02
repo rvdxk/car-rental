@@ -16,7 +16,7 @@ public class CarDto {
     private String make;
     private String model;
     private String plateNumber;
-    private int costPerHour;
+    private int costPerDay;
     private boolean isAvailable;
     private CarParams carParams;
 }

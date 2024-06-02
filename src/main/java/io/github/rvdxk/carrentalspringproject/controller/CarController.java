@@ -26,12 +26,14 @@ public class CarController {
     }
 
     @PostMapping("/cars/add")
+    @ResponseStatus(HttpStatus.CREATED)
     public String addCar(@RequestBody @Valid CarDto carDto){
         carService.addCar(carDto);
         return "Car successfully added!";
     }
 
     @PostMapping("/cars/{id}/parameters")
+    @ResponseStatus(HttpStatus.CREATED)
     public String addCarParameters(@PathVariable Long id,
                                    @RequestBody @Valid CarParams carParams){
         carService.addCarParams(id, carParams);

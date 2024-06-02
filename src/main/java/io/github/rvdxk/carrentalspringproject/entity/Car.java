@@ -24,7 +24,7 @@ public class Car {
     @Column(nullable = false, unique = true)
     private String plateNumber;
     @Column(nullable = false)
-    private int costPerHour;
+    private int costPerDay;
     @Column(nullable = false)
     private boolean isAvailable;
     @Transient

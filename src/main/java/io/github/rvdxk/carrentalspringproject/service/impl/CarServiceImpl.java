@@ -49,7 +49,7 @@ public class CarServiceImpl implements CarService {
         car.setMake(car.getMake());
         car.setModel(car.getModel());
         car.setPlateNumber(car.getPlateNumber());
-        car.setCostPerHour(car.getCostPerHour());
+        car.setCostPerDay(car.getCostPerDay());
         car.setAvailable(car.isAvailable());
         car.setCarParams(carParams);
        return CarMapper.mapToCarDto(car);
@@ -83,7 +83,7 @@ public class CarServiceImpl implements CarService {
         car.setMake(carDto.getMake());
         car.setModel(carDto.getModel());
         car.setPlateNumber(carDto.getPlateNumber());
-        car.setCostPerHour(carDto.getCostPerHour());
+        car.setCostPerDay(carDto.getCostPerDay());
         car.setAvailable(carDto.isAvailable());
 
         if (carDto.getCarParams() != null) {

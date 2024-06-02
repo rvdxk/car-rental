@@ -11,7 +11,7 @@ public class CarMapper {
                 .make(carDto.getMake())
                 .model(carDto.getModel())
                 .plateNumber(carDto.getPlateNumber())
-                .costPerHour(carDto.getCostPerHour())
+                .costPerDay(carDto.getCostPerDay())
                 .isAvailable(carDto.isAvailable())
                 .carParams(carDto.getCarParams())
                 .build();
@@ -23,7 +23,7 @@ public class CarMapper {
                 .make(car.getMake())
                 .model(car.getModel())
                 .plateNumber(car.getPlateNumber())
-                .costPerHour(car.getCostPerHour())
+                .costPerDay(car.getCostPerDay())
                 .isAvailable(car.isAvailable())
                 .carParams(car.getCarParams())
                 .build();
