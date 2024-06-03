@@ -21,21 +21,29 @@ public class CarParams {
     @Column(unique = true, nullable = false)
     @JoinColumn(name = "car_params_id")
     private Long id;
+
     @Column(nullable = false)
     private String make;
+
     @Column(nullable = false)
     private String model;
+
     @Column(nullable = false)
     private int prodYear;
+
     @Column(nullable = false)
     private String type;
+
     @Column(nullable = false)
     private int numberOfDoors;
+
     @Column(nullable = false)
     private int numberOfSeats;
+
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private Gearbox gearbox;
+
     @Column(nullable = false)
     private String driveWheels;
 
