@@ -1,6 +1,7 @@
 package io.github.rvdxk.carrentalspringproject.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -25,6 +26,9 @@ public class Customer {
 
     @Column(nullable = false)
     private String lastName;
+
+    @Column(nullable = false)
+    private String idCardNumber;
 
     @Column(nullable = false, unique = true)
     private String email;

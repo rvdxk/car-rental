@@ -17,20 +17,27 @@ public class Car {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(unique = true, nullable = false)
     private Long id;
-    @Column(nullable = false)
-    private String make;
-    @Column(nullable = false)
-    private String model;
-    @Column(nullable = false, unique = true)
-    private String plateNumber;
-    @Column(nullable = false)
-    private int costPerDay;
-    @Column(nullable = false)
-    private boolean isAvailable;
+
     @Transient
     private Long carParamsId;
 
     @JsonIgnore
     @OneToOne(orphanRemoval = true)
     private CarParams carParams;
+
+    @Column(nullable = false)
+    private String make;
+
+    @Column(nullable = false)
+    private String model;
+
+    @Column(nullable = false, unique = true)
+    private String plateNumber;
+
+    @Column(nullable = false)
+    private int costPerDay;
+
+    @Column(nullable = false)
+    private boolean isAvailable;
+
 }

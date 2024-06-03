@@ -45,7 +45,7 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public void updateCustomer(CustomerDto customerDto, Long customerId) {
-        Customer customer = customerRepository.findById(customerId)
+        customerRepository.findById(customerId)
                 .orElseThrow(()-> new ResourceNotFoundException("Customer with id " + customerId + " not found"));
 
         customerRepository.save(CustomerMapper.mapToCustomer(customerDto));
@@ -54,7 +54,7 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public void deleteCustomer(Long customerId) {
-        Customer customer = customerRepository.findById(customerId)
+        customerRepository.findById(customerId)
                 .orElseThrow(()-> new ResourceNotFoundException("Customer with id " + customerId + " not found"));
 
         customerRepository.deleteById(customerId);

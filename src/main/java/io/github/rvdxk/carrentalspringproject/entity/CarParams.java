@@ -22,6 +22,10 @@ public class CarParams {
     @JoinColumn(name = "car_params_id")
     private Long id;
 
+    @JsonIgnore
+    @OneToOne(mappedBy = "carParams")
+    private Car car;
+
     @Column(nullable = false)
     private String make;
 
@@ -46,9 +50,4 @@ public class CarParams {
 
     @Column(nullable = false)
     private String driveWheels;
-
-
-    @JsonIgnore
-    @OneToOne(mappedBy = "carParams")
-    private Car car;
 }
