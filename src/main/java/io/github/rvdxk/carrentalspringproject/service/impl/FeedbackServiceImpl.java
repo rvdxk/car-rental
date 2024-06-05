@@ -6,6 +6,7 @@ import io.github.rvdxk.carrentalspringproject.repository.FeedbackRepository;
 import io.github.rvdxk.carrentalspringproject.service.FeedbackService;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -25,6 +26,7 @@ public class FeedbackServiceImpl implements FeedbackService {
 
     @Override
     public void addFeedback(Feedback feedback) {
+        feedback.setFeedbackDate(LocalDateTime.now().toLocalDate());
         feedbackRepository.save(feedback);
     }
 
@@ -32,6 +34,8 @@ public class FeedbackServiceImpl implements FeedbackService {
     public void editFeedback(Feedback feedback, Long id) {
         feedbackRepository.findById(id)
                 .orElseThrow(()-> new ResourceNotFoundException("Feedback with id " + id + " not found"));
+        feedback.setId(id);
+        feedback.setFeedbackDate(LocalDateTime.now().toLocalDate());
         feedbackRepository.save(feedback);
     }
 
