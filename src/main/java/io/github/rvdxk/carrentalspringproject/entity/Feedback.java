@@ -29,7 +29,6 @@ public class Feedback {
     @Column
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate feedbackDate;
-    //akutalny czas dodania
 
     @Min(value = 1, message = "Rating must be at least 1")
     @Max(value = 5, message = "Rating must be at most 5")

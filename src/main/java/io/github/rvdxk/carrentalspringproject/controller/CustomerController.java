@@ -1,6 +1,7 @@
 package io.github.rvdxk.carrentalspringproject.controller;
 
 import io.github.rvdxk.carrentalspringproject.dto.CustomerDto;
+import io.github.rvdxk.carrentalspringproject.dto.FeedbackDto;
 import io.github.rvdxk.carrentalspringproject.entity.Feedback;
 import io.github.rvdxk.carrentalspringproject.mapper.CustomerMapper;
 import io.github.rvdxk.carrentalspringproject.service.CustomerService;
@@ -87,9 +88,17 @@ public class CustomerController {
         return "Feedback successfully added!";
     }
     @GetMapping("/customer/feedback/all")
-    public ResponseEntity<List<Feedback>> getAllFeedback(){
-        List<Feedback> feedbackList = feedbackService.getAllFeedback();
+    public ResponseEntity<List<FeedbackDto>> getAllFeedback(){
+        List<FeedbackDto> feedbackList = feedbackService.getAllFeedback();
         return new ResponseEntity<>(feedbackList,HttpStatus.OK);
+    }
+
+    @GetMapping("/customer/{customerId}/feedback/{feedbackId}")
+    public FeedbackDto getFeedbackById(@PathVariable("customerId") Long customerId,
+                                       @PathVariable("feedbackId") Long feedbackId){
+        customerService.getCustomerById(customerId);
+        FeedbackDto feedbackDto = feedbackService.getFeedbackById(feedbackId);
+        return feedbackDto;
     }
 
     @PutMapping("/customer/{customerId}/feedback/{feedbackId}")
