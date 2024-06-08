@@ -10,7 +10,7 @@ import lombok.*;
 @NoArgsConstructor
 @Entity
 @Builder
-@Table(name = "car")
+@Table(name = "cars")
 public class Car {
 
     @Id
