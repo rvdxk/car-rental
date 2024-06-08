@@ -11,11 +11,12 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "location")
-public class Location {
+@Table(name = "car_location")
+public class CarLocation {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(nullable = false)
     private Long id;
 
     @Column(nullable = false)
@@ -23,9 +24,6 @@ public class Location {
 
     @Column(nullable = false)
     private Long houseNumber;
-
-    @Column(nullable = false)
-    private String apartmentNumber;
 
     @Column(nullable = false)
     private String city;

@@ -21,20 +21,20 @@ public class CarController {
     public CarService carService;
 
 
-    @GetMapping("/cars")
+    @GetMapping("/car")
     public ResponseEntity<List<Car>> getAllCars(){
         List<Car> carsList = carService.getAllCars();
         return new ResponseEntity<>(carsList, HttpStatus.OK);
     }
 
-    @PostMapping("/cars/add")
+    @PostMapping("/car/add")
     @ResponseStatus(HttpStatus.CREATED)
     public String addCar(@RequestBody @Valid CarDto carDto){
         carService.addCar(carDto);
         return "Car successfully added!";
     }
 
-    @PostMapping("/cars/{id}/parameters")
+    @PostMapping("/car/{id}/parameters")
     @ResponseStatus(HttpStatus.CREATED)
     public String addCarParameters(@PathVariable Long id,
                                    @RequestBody @Valid CarParams carParams){
@@ -42,27 +42,27 @@ public class CarController {
         return "Car parameters successfully added!";
     }
 
-    @GetMapping("/cars/{id}")
+    @GetMapping("/car/{id}")
     public CarDto getCarById(@PathVariable("id") Long id){
         CarDto carDto = carService.getCarById(id);
         return carDto;
     }
 
-    @PutMapping("/cars/{id}")
+    @PutMapping("/car/{id}")
     public String updateCar(@PathVariable("id") Long id,
                             @RequestBody @Valid CarDto carDto){
         carService.updateCar(id, carDto);
         return "Car successfully updated!";
     }
 
-    @PutMapping("/cars/{id}/parameters")
+    @PutMapping("/car/{id}/parameters")
     public String updateCarParams(@PathVariable(value = "id", required = true) Long id,
                                   @RequestBody @Valid CarParams carParams){
         carService.updateCarParam(id, carParams);
         return "Car parameters successfully updated!";
     }
 
-    @DeleteMapping("/cars/{id}")
+    @DeleteMapping("/car/{id}")
     public String deleteCarById(@PathVariable("id") Long id){
         carService.deleteCar(id);
         return "Car successfully deleted!";

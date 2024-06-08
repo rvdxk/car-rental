@@ -17,19 +17,17 @@ public class RentalInfo {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(unique = true, nullable = false)
     private Long id;
 
-    @ManyToOne
     @JoinColumn(name = "customer_id", nullable = false)
-    private Customer customer;
+    private Long customerId;
 
-    @ManyToOne
     @JoinColumn(name = "car_id", nullable = false)
-    private Car car;
+    private Long carId;
 
-    @ManyToOne
-    @JoinColumn(name = "location_id", nullable = false)
-    private Location location;
+    @JoinColumn(name = "car_location_id", nullable = false)
+    private Long carLocationId;
 
     @OneToOne(mappedBy = "rentalInfo", cascade = CascadeType.ALL)
     private Payment payment;

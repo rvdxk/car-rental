@@ -1,8 +1,5 @@
 package io.github.rvdxk.carrentalspringproject.dto;
 
-import io.github.rvdxk.carrentalspringproject.entity.Car;
-import io.github.rvdxk.carrentalspringproject.entity.Customer;
-import io.github.rvdxk.carrentalspringproject.entity.Location;
 import io.github.rvdxk.carrentalspringproject.entity.Payment;
 
 import jakarta.validation.constraints.NotNull;
@@ -23,13 +20,13 @@ public class RentalInfoDto {
     private Long id;
 
     @NotNull(message = "Please, enter the customer ID.")
-    private Customer customer;
+    private Long customerId;
 
     @NotNull(message = "Please, enter the car ID.")
-    private Car car;
+    private Long carId;
 
     @NotNull(message = "Please, enter the location ID.")
-    private Location location;
+    private Long carLocationId;
 
     @NotNull(message = "Please, enter the payment information.")
     private Payment payment;

@@ -31,26 +31,26 @@ public class CustomerController {
     @Autowired
     private FeedbackService feedbackService;
 
-    @PostMapping("/customers/add")
+    @PostMapping("/customer/add")
     @ResponseStatus(HttpStatus.CREATED)
     public String addCustomer(@RequestBody @Valid CustomerDto customerDto){
         customerService.addCustomer(customerDto);
         return "Customer successfully added!";
     }
 
-    @GetMapping("/customers")
+    @GetMapping("/customer")
     public ResponseEntity<List<CustomerDto>> getAllCustomers(){
         List<CustomerDto> customerDtoList = customerService.getAllCustomers();
         return new ResponseEntity<>(customerDtoList, HttpStatus.OK);
     }
 
-    @GetMapping("/customers/{id}")
+    @GetMapping("/customer/{id}")
     public CustomerDto getCustomerById(@PathVariable("id") Long customerId){
         CustomerDto customerDto = customerService.getCustomerById(customerId);
         return customerDto;
     }
 
-    @PutMapping("/customers/{id}")
+    @PutMapping("/customer/{id}")
     public String updateCustomer(@PathVariable("id") Long customerId,
                                @RequestBody @Valid CustomerDto customerDto){
         customerDto.setId(customerId);
@@ -58,7 +58,7 @@ public class CustomerController {
         return "Customer successfully updated!";
     }
 
-    @DeleteMapping("/customers/{id}")
+    @DeleteMapping("/customer/{id}")
     public String deleteCustomer(@PathVariable("id")Long customerId){
         customerService.deleteCustomer(customerId);
         return "Customer successfully deleted!";
@@ -77,7 +77,7 @@ public class CustomerController {
         return errors;
     }
 
-    @PostMapping("/customers/{id}/feedback/add")
+    @PostMapping("/customer/{id}/feedback/add")
     @ResponseStatus(HttpStatus.CREATED)
     public String addFeedback(@PathVariable("id") Long customerId,
                               @RequestBody @Valid Feedback feedback){
@@ -86,13 +86,13 @@ public class CustomerController {
         feedbackService.addFeedback(feedback);
         return "Feedback successfully added!";
     }
-    @GetMapping("/customers/feedback/all")
+    @GetMapping("/customer/feedback/all")
     public ResponseEntity<List<Feedback>> getAllFeedback(){
         List<Feedback> feedbackList = feedbackService.getAllFeedback();
         return new ResponseEntity<>(feedbackList,HttpStatus.OK);
     }
 
-    @PutMapping("/customers/{customerId}/feedback/{feedbackId}")
+    @PutMapping("/customer/{customerId}/feedback/{feedbackId}")
     public String editFeedback(@PathVariable("customerId") Long customerId,
                                @PathVariable("feedbackId") Long feedbackId,
                                @RequestBody @Valid Feedback feedback){
@@ -101,7 +101,7 @@ public class CustomerController {
         return "Feedback successfully edited!";
     }
 
-    @DeleteMapping("/customers/{customerId}/feedback/{feedbackId}")
+    @DeleteMapping("/customer/{customerId}/feedback/{feedbackId}")
     public String deleteFeedback(@PathVariable("customerId") Long customerId,
                                  @PathVariable("feedbackId") Long feedbackId){
         customerService.getCustomerById(customerId);

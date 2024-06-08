@@ -42,7 +42,6 @@ public class RentalInfoServiceImpl implements RentalInfoService {
         RentalInfo updateInfo = rentalInfoRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Rental information with id: " + id + " not found"));
 
-        updateInfo.setCar(rentalInfo.getCar());
         updateInfo.setRentalDate(rentalInfo.getRentalDate());
         updateInfo.setReturnDate(rentalInfo.getReturnDate());
         updateInfo.setTotalCost(rentalInfo.getTotalCost());
