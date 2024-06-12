@@ -25,6 +25,13 @@ public class Car {
     @OneToOne(orphanRemoval = true)
     private CarParams carParams;
 
+    @Transient
+    private Long carLocationId;
+
+    @JsonIgnore
+    @OneToOne(orphanRemoval = true)
+    private CarLocation carLocation;
+
     @Column(nullable = false)
     private String make;
 

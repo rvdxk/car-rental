@@ -1,5 +1,6 @@
 package io.github.rvdxk.carrentalspringproject.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -18,6 +19,10 @@ public class CarLocation {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(nullable = false)
     private Long id;
+
+    @JsonIgnore
+    @OneToOne(mappedBy = "carLocation")
+    private Car car;
 
     @Column(nullable = false)
     private String street;

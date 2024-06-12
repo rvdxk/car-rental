@@ -2,13 +2,16 @@ package io.github.rvdxk.carrentalspringproject.service.impl;
 
 import io.github.rvdxk.carrentalspringproject.dto.CarDto;
 import io.github.rvdxk.carrentalspringproject.entity.Car;
+import io.github.rvdxk.carrentalspringproject.entity.CarLocation;
 import io.github.rvdxk.carrentalspringproject.entity.CarParams;
 import io.github.rvdxk.carrentalspringproject.exception.ResourceNotFoundException;
 import io.github.rvdxk.carrentalspringproject.mapper.CarMapper;
+import io.github.rvdxk.carrentalspringproject.repository.CarLocationRepository;
 import io.github.rvdxk.carrentalspringproject.repository.CarParamsRepository;
 import io.github.rvdxk.carrentalspringproject.repository.CarRepository;
 import io.github.rvdxk.carrentalspringproject.service.CarService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -20,6 +23,7 @@ public class CarServiceImpl implements CarService {
 
     private final CarRepository carRepository;
     private final CarParamsRepository carParamsRepository;
+    private final CarLocationRepository carLocationRepository;
 
 
     @Override
@@ -33,6 +37,15 @@ public class CarServiceImpl implements CarService {
             }
             car.setCarParamsId(id);
         });
+
+        carsList.forEach(car -> {
+            Long id = null;
+            if (car.getCarLocation() != null) {
+                id = car.getCarLocation().getId();
+            }
+            car.setCarLocationId(id);
+        });
+
         return carsList;
     }
 
@@ -56,6 +69,13 @@ public class CarServiceImpl implements CarService {
     }
 
     @Override
+    public CarLocation getCarLocationById(Long id) {
+        CarLocation carLocation = carLocationRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("CarLocation with id " + id + " not found"));
+        return carLocation;
+    }
+
+    @Override
     public void addCar(CarDto carDto) {
         Car car = CarMapper.mapToCar(carDto);
         carRepository.save(car);
@@ -74,6 +94,18 @@ public class CarServiceImpl implements CarService {
         carRepository.save(car);
     }
 
+    @Override
+    public void addCarLocation(Long id, CarLocation carLocation) {
+        Car car = carRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Car with id " + id + " not found"));
+        if(car.getCarLocation() != null) {
+
+            carLocationRepository.delete(car.getCarLocation());
+        }
+        carLocationRepository.save(carLocation);
+        car.setCarLocation(carLocation);
+        carRepository.save(car);
+    }
 
     @Override
     public void updateCar(Long id, CarDto carDto) {
@@ -136,10 +168,48 @@ public class CarServiceImpl implements CarService {
     }
 
     @Override
+    public void updateCarLocation(CarLocation carLocation, Long id) {
+
+        Optional<CarLocation>  existingCarLocationOptional = carLocationRepository.findById(id);
+        if (existingCarLocationOptional.isPresent()) {
+            CarLocation updateCarLocation = existingCarLocationOptional.get();
+
+            updateCarLocation.setStreet(carLocation.getStreet());
+            updateCarLocation.setHouseNumber(carLocation.getHouseNumber());
+            updateCarLocation.setCity(carLocation.getCity());
+            updateCarLocation.setPostalCode(carLocation.getPostalCode());
+            updateCarLocation.setCountry(carLocation.getCountry());
+
+            carLocationRepository.save(updateCarLocation);
+
+            Car car = carRepository.findById(id)
+                    .orElseThrow(() -> new ResourceNotFoundException("Car with id " + id + " not found"));
+            car.setCarLocation(updateCarLocation);
+            carRepository.save(car);
+        } else {
+            throw new ResourceNotFoundException("CarParams with id " + id + " not found");
+        }
+    }
+
+    @Override
     public void deleteCar(Long id) {
-        Car car = carRepository.findById(id)
+        carRepository.findById(id)
                 .orElseThrow(()-> new ResourceNotFoundException("Car with id " + id + " not found"));
 
         carRepository.deleteById(id);
+    }
+
+    @Override
+    public void deleteCarLocation(Long id) {
+        Car car = carRepository.findById(id)
+            .orElseThrow(() -> new ResourceNotFoundException("Car with id " + id + " not found"));
+        if (car.getCarLocation() != null) {
+            CarLocation carLocation = car.getCarLocation();
+            car.setCarLocation(null);
+            carRepository.save(car);
+            carLocationRepository.delete(carLocation);
+        } else {
+            throw new ResourceNotFoundException("Car with id " + id + " does not have a location assigned.");
+        }
     }
 }

@@ -14,6 +14,7 @@ public class CarMapper {
                 .costPerDay(carDto.getCostPerDay())
                 .isAvailable(carDto.isAvailable())
                 .carParams(carDto.getCarParams())
+                .carLocation(carDto.getCarLocation())
                 .build();
     }
 
@@ -26,6 +27,7 @@ public class CarMapper {
                 .costPerDay(car.getCostPerDay())
                 .isAvailable(car.isAvailable())
                 .carParams(car.getCarParams())
+                .carLocation(car.getCarLocation())
                 .build();
     }
 

@@ -1,5 +1,6 @@
 package io.github.rvdxk.carrentalspringproject.dto;
 
+import io.github.rvdxk.carrentalspringproject.entity.CarLocation;
 import io.github.rvdxk.carrentalspringproject.entity.CarParams;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
@@ -31,4 +32,6 @@ public class CarDto {
     private boolean isAvailable;
 
     private CarParams carParams;
+
+    private CarLocation carLocation;
 }
