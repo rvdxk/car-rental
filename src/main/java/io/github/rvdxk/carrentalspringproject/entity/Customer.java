@@ -1,11 +1,9 @@
 package io.github.rvdxk.carrentalspringproject.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import io.github.rvdxk.carrentalspringproject.constant.Country;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.Date;
 
@@ -13,6 +11,7 @@ import java.util.Date;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 @Entity
 @Table(name = "customers")
 public class Customer {
@@ -20,6 +19,10 @@ public class Customer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @JsonIgnore
+    @OneToOne(mappedBy = "customer")
+    private User user;
 
     @Column(nullable = false)
     private String firstName;
@@ -29,9 +32,6 @@ public class Customer {
 
     @Column(nullable = false)
     private String idCardNumber;
-
-    @Column(nullable = false, unique = true)
-    private String email;
 
     @Column(nullable = false, unique = true)
     private String phoneNumber;
@@ -44,6 +44,9 @@ public class Customer {
     private String apartmentNumber;
     private String city;
     private String postalCode;
-    private String country;
+
+    @Enumerated(EnumType.STRING)
+    private Country country;
+
 
 }

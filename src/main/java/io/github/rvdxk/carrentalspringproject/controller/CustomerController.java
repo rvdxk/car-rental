@@ -1,11 +1,8 @@
 package io.github.rvdxk.carrentalspringproject.controller;
 
 import io.github.rvdxk.carrentalspringproject.dto.CustomerDto;
-import io.github.rvdxk.carrentalspringproject.dto.FeedbackDto;
-import io.github.rvdxk.carrentalspringproject.entity.Feedback;
-import io.github.rvdxk.carrentalspringproject.mapper.CustomerMapper;
 import io.github.rvdxk.carrentalspringproject.service.CustomerService;
-import io.github.rvdxk.carrentalspringproject.service.FeedbackService;
+import io.github.rvdxk.carrentalspringproject.service.UserService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,12 +27,13 @@ public class CustomerController {
     private CustomerService customerService;
 
     @Autowired
-    private FeedbackService feedbackService;
+    private UserService userService;
 
-    @PostMapping("/customer/add")
+    @PostMapping("user/{id}/customer")
     @ResponseStatus(HttpStatus.CREATED)
-    public String addCustomer(@RequestBody @Valid CustomerDto customerDto){
-        customerService.addCustomer(customerDto);
+    public String addCustomer(@RequestBody @Valid CustomerDto customerDto,
+                              @PathVariable("id") Long id){
+        customerService.addCustomer(customerDto, id);
         return "Customer successfully added!";
     }
 
@@ -76,45 +74,5 @@ public class CustomerController {
             errors.put(fieldName, errorMessage);
         });
         return errors;
-    }
-
-    @PostMapping("/customer/{id}/feedback/add")
-    @ResponseStatus(HttpStatus.CREATED)
-    public String addFeedback(@PathVariable("id") Long customerId,
-                              @RequestBody @Valid Feedback feedback){
-        CustomerDto customerDto = customerService.getCustomerById(customerId);
-        feedback.setCustomer(CustomerMapper.mapToCustomer(customerDto));
-        feedbackService.addFeedback(feedback);
-        return "Feedback successfully added!";
-    }
-    @GetMapping("/customer/feedback/all")
-    public ResponseEntity<List<FeedbackDto>> getAllFeedback(){
-        List<FeedbackDto> feedbackList = feedbackService.getAllFeedback();
-        return new ResponseEntity<>(feedbackList,HttpStatus.OK);
-    }
-
-    @GetMapping("/customer/{customerId}/feedback/{feedbackId}")
-    public FeedbackDto getFeedbackById(@PathVariable("customerId") Long customerId,
-                                       @PathVariable("feedbackId") Long feedbackId){
-        customerService.getCustomerById(customerId);
-        FeedbackDto feedbackDto = feedbackService.getFeedbackById(feedbackId);
-        return feedbackDto;
-    }
-
-    @PutMapping("/customer/{customerId}/feedback/{feedbackId}")
-    public String editFeedback(@PathVariable("customerId") Long customerId,
-                               @PathVariable("feedbackId") Long feedbackId,
-                               @RequestBody @Valid Feedback feedback){
-        customerService.getCustomerById(customerId);
-        feedbackService.editFeedback(feedback, feedbackId);
-        return "Feedback successfully edited!";
-    }
-
-    @DeleteMapping("/customer/{customerId}/feedback/{feedbackId}")
-    public String deleteFeedback(@PathVariable("customerId") Long customerId,
-                                 @PathVariable("feedbackId") Long feedbackId){
-        customerService.getCustomerById(customerId);
-        feedbackService.deleteFeedback(feedbackId);
-        return "Feedback successfully deleted!";
     }
 }

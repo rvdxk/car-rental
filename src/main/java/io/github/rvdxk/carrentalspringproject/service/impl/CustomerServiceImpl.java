@@ -2,23 +2,28 @@ package io.github.rvdxk.carrentalspringproject.service.impl;
 
 import io.github.rvdxk.carrentalspringproject.dto.CustomerDto;
 import io.github.rvdxk.carrentalspringproject.entity.Customer;
+import io.github.rvdxk.carrentalspringproject.entity.User;
 import io.github.rvdxk.carrentalspringproject.exception.ResourceNotFoundException;
 import io.github.rvdxk.carrentalspringproject.mapper.CustomerMapper;
 import io.github.rvdxk.carrentalspringproject.repository.CustomerRepository;
+import io.github.rvdxk.carrentalspringproject.repository.UserRepository;
 import io.github.rvdxk.carrentalspringproject.service.CustomerService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static org.springframework.data.jpa.domain.AbstractPersistable_.id;
+
+@RequiredArgsConstructor
 @Service
 public class CustomerServiceImpl implements CustomerService {
 
     private final CustomerRepository customerRepository;
+    private final UserRepository userRepository;
 
-    public CustomerServiceImpl(CustomerRepository customerRepository) {
-        this.customerRepository = customerRepository;
-    }
+
 
     @Override
     public List<CustomerDto> getAllCustomers() {
@@ -30,17 +35,27 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public void addCustomer(CustomerDto customerDto) {
+    public void addCustomer(CustomerDto customerDto, Long customerId) {
+        User user = userRepository.findById(customerId)
+                .orElseThrow(() -> new ResourceNotFoundException("Customer with id " + id + " not found"));
+
         Customer customer = CustomerMapper.mapToCustomer(customerDto);
+
+        if(user.getCustomer() != null) {
+
+            customerRepository.delete(user.getCustomer());
+        }
         customerRepository.save(customer);
-    }
+        user.setCustomer(customer);
+        userRepository.save(user);
+        }
+
 
     @Override
     public CustomerDto getCustomerById(Long customerId) {
         Customer customer = customerRepository.findById(customerId)
                 .orElseThrow(()-> new ResourceNotFoundException("Customer with id " + customerId + " not found"));
-        CustomerDto customerDto = CustomerMapper.mapToCustomerDto(customer);
-        return customerDto;
+        return CustomerMapper.mapToCustomerDto(customer);
     }
 
     @Override

@@ -6,41 +6,37 @@ import io.github.rvdxk.carrentalspringproject.entity.Customer;
 public class CustomerMapper {
 
     public static CustomerDto mapToCustomerDto(Customer customer){
-        CustomerDto customerDto = new CustomerDto(
-                customer.getId(),
-                customer.getFirstName(),
-                customer.getLastName(),
-                customer.getIdCardNumber(),
-                customer.getEmail(),
-                customer.getPhoneNumber(),
-                customer.getDateOfBirth(),
-                customer.getStreet(),
-                customer.getHouseNumber(),
-                customer.getApartmentNumber(),
-                customer.getCity(),
-                customer.getPostalCode(),
-                customer.getCountry()
-        );
-        return customerDto;
+        return CustomerDto.builder()
+                .id(customer.getId())
+                .firstName(customer.getFirstName())
+                .lastName(customer.getLastName())
+                .idCardNumber(customer.getIdCardNumber())
+                .phoneNumber(customer.getPhoneNumber())
+                .dateOfBirth(customer.getDateOfBirth())
+                .street(customer.getStreet())
+                .houseNumber(customer.getHouseNumber())
+                .apartmentNumber(customer.getApartmentNumber())
+                .city(customer.getCity())
+                .postalCode(customer.getPostalCode())
+                .country(customer.getCountry())
+                .build();
     }
 
     public static Customer mapToCustomer(CustomerDto customerDto){
-        Customer customer = new Customer(
-                customerDto.getId(),
-                customerDto.getFirstName(),
-                customerDto.getLastName(),
-                customerDto.getIdCardNumber(),
-                customerDto.getEmail(),
-                customerDto.getPhoneNumber(),
-                customerDto.getDateOfBirth(),
-                customerDto.getStreet(),
-                customerDto.getHouseNumber(),
-                customerDto.getApartmentNumber(),
-                customerDto.getCity(),
-                customerDto.getPostalCode(),
-                customerDto.getCountry()
-        );
-        return customer;
+        return Customer.builder()
+                .id(customerDto.getId())
+                .firstName(customerDto.getFirstName())
+                .lastName(customerDto.getLastName())
+                .idCardNumber(customerDto.getIdCardNumber())
+                .phoneNumber(customerDto.getPhoneNumber())
+                .dateOfBirth(customerDto.getDateOfBirth())
+                .street(customerDto.getStreet())
+                .houseNumber(customerDto.getHouseNumber())
+                .apartmentNumber(customerDto.getApartmentNumber())
+                .city(customerDto.getCity())
+                .postalCode(customerDto.getPostalCode())
+                .country(customerDto.getCountry())
+                .build();
     }
 
 }
