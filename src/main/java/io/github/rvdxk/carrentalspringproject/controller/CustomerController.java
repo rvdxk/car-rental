@@ -2,7 +2,6 @@ package io.github.rvdxk.carrentalspringproject.controller;
 
 import io.github.rvdxk.carrentalspringproject.dto.CustomerDto;
 import io.github.rvdxk.carrentalspringproject.service.CustomerService;
-import io.github.rvdxk.carrentalspringproject.service.UserService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,8 +25,6 @@ public class CustomerController {
     @Autowired
     private CustomerService customerService;
 
-    @Autowired
-    private UserService userService;
 
     @PostMapping("user/{id}/customer")
     @ResponseStatus(HttpStatus.CREATED)
