@@ -13,8 +13,7 @@ import java.time.LocalDate;
 @Builder
 public class FeedbackDto {
 
-    private String firstName;
-    private String lastName;
+    private String username;
     private LocalDate feedbackDate;
     private int rating;
     private String comments;
