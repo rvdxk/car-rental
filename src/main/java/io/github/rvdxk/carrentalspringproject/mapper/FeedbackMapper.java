@@ -6,7 +6,7 @@ import io.github.rvdxk.carrentalspringproject.entity.Feedback;
 public class FeedbackMapper {
     public static FeedbackDto mapToFeedbackDto(Feedback feedback){
         FeedbackDto feedbackDto = new FeedbackDto(
-                feedback.getUser().getUsername(),
+                feedback.getUser().getEmail(),
                 feedback.getFeedbackDate(),
                 feedback.getRating(),
                 feedback.getComments()
