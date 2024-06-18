@@ -14,7 +14,6 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static org.springframework.data.jpa.domain.AbstractPersistable_.id;
 
 @RequiredArgsConstructor
 @Service
@@ -37,7 +36,7 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     public void addCustomer(CustomerDto customerDto, Long customerId) {
         User user = userRepository.findById(customerId)
-                .orElseThrow(() -> new ResourceNotFoundException("Customer with id " + id + " not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Customer with id " + customerId + " not found"));
 
         Customer customer = CustomerMapper.mapToCustomer(customerDto);
 

@@ -11,7 +11,6 @@ import io.github.rvdxk.carrentalspringproject.repository.CarParamsRepository;
 import io.github.rvdxk.carrentalspringproject.repository.CarRepository;
 import io.github.rvdxk.carrentalspringproject.service.CarService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
