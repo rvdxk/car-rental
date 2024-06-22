@@ -14,7 +14,4 @@ public class CarRentalSpringProjectApplication {
 
 
 //zmienic get na find
-//w customer get nie ma user id
-// customer poza add dostep tylko dla admina
-//caly car controller nie dziala - 403
-//refresh token
+//zrobic refresh token by nie trzeba tworzyc nowego usera/admina za kazdym uwierzytelnianiem
