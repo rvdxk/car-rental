@@ -2,6 +2,7 @@ package io.github.rvdxk.carrentalspringproject.mapper;
 
 import io.github.rvdxk.carrentalspringproject.dto.CustomerDto;
 import io.github.rvdxk.carrentalspringproject.entity.Customer;
+import io.github.rvdxk.carrentalspringproject.entity.User;
 
 public class CustomerMapper {
 
@@ -19,6 +20,11 @@ public class CustomerMapper {
                 .city(customer.getCity())
                 .postalCode(customer.getPostalCode())
                 .country(customer.getCountry())
+                .userId(customer.getUser().getId())
+                .userFirstName(customer.getUser().getFirstName())
+                .userLastName(customer.getUser().getLastName())
+                .userEmail(customer.getUser().getEmail())
+                .userRole(customer.getUser().getRole().name())
                 .build();
     }
 

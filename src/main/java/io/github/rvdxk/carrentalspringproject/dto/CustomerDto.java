@@ -43,5 +43,10 @@ public class CustomerDto {
     private String postalCode;
     private Country country;
 
-    private User user;
+    private Long userId;
+    private String userFirstName;
+    private String userLastName;
+    private String userEmail;
+    private String userRole;
+
 }
