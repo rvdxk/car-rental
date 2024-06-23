@@ -26,7 +26,7 @@ public class FeedbackController {
 
 
 
-    @PostMapping("/user/{userId}/feedback/add")
+    @PostMapping("/users/{userId}/feedbacks/add")
     @ResponseStatus(HttpStatus.CREATED)
     public String addFeedback(@PathVariable("userId") Long userId,
                               @RequestBody @Valid Feedback feedback){
@@ -35,13 +35,13 @@ public class FeedbackController {
         feedbackService.addFeedback(feedback);
         return "Feedback successfully added!";
     }
-    @GetMapping("/user/feedback/all")
+    @GetMapping("/users/feedbacks")
     public ResponseEntity<List<FeedbackDto>> getAllFeedback(){
         List<FeedbackDto> feedbackList = feedbackService.getAllFeedback();
         return new ResponseEntity<>(feedbackList,HttpStatus.OK);
     }
 
-    @GetMapping("/user/{userId}/feedback/{feedbackId}")
+    @GetMapping("/users/{userId}/feedbacks/{feedbackId}")
     public FeedbackDto getFeedbackById(@PathVariable("userId") Long userId,
                                        @PathVariable("feedbackId") Long feedbackId){
         userService.getUserById(userId);
@@ -49,16 +49,16 @@ public class FeedbackController {
         return feedbackDto;
     }
 
-    @PutMapping("/user/{userId}/feedback/{feedbackId}")
+    @PutMapping("/users/{userId}/feedbacks/{feedbackId}")
     public String editFeedback(@PathVariable("userId") Long userId,
                                @PathVariable("feedbackId") Long feedbackId,
-                               @RequestBody @Valid Feedback feedback){
+                               @RequestBody @Valid FeedbackDto feedbackDto){
         userService.getUserById(userId);
-        feedbackService.editFeedback(feedback, feedbackId);
+        feedbackService.editFeedback(feedbackDto, feedbackId);
         return "Feedback successfully edited!";
     }
 
-    @DeleteMapping("/user/{userId}/feedback/{feedbackId}")
+    @DeleteMapping("/users/{userId}/feedbacks/{feedbackId}")
     public String deleteFeedback(@PathVariable("userId") Long userId,
                                  @PathVariable("feedbackId") Long feedbackId){
         userService.getUserById(userId);
