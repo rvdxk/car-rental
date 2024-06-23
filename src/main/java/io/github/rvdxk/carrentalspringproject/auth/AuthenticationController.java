@@ -1,11 +1,8 @@
 package io.github.rvdxk.carrentalspringproject.auth;
 
-import io.github.rvdxk.carrentalspringproject.config.JwtService;
-import jakarta.servlet.http.HttpServletRequest;
+
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -13,8 +10,6 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/authorize")
 public class AuthenticationController {
 
-    private JwtService jwtService;
-    private UserDetailsService userDetailsService;
     private final AuthenticationService service;
 
     @PostMapping("/register/user")
@@ -31,11 +26,11 @@ public class AuthenticationController {
         return ResponseEntity.ok(service.registerAdmin(request));
     }
 
-    @PostMapping("/authenticate")
-    public ResponseEntity<AuthenticationResponse> authenticate(
+    @PostMapping("/login")
+    public ResponseEntity<AuthenticationResponse> login(
             @RequestBody AuthenticationRequest request
     ) {
-        return ResponseEntity.ok(service.authenticate(request));
+        return ResponseEntity.ok(service.login(request));
     }
 
 }
