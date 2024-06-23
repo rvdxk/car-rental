@@ -6,20 +6,18 @@ import io.github.rvdxk.carrentalspringproject.exception.ResourceNotFoundExceptio
 import io.github.rvdxk.carrentalspringproject.mapper.FeedbackMapper;
 import io.github.rvdxk.carrentalspringproject.repository.FeedbackRepository;
 import io.github.rvdxk.carrentalspringproject.service.FeedbackService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@RequiredArgsConstructor
 @Service
 public class FeedbackServiceImpl implements FeedbackService {
 
     private final FeedbackRepository feedbackRepository;
-
-    public FeedbackServiceImpl(FeedbackRepository feedbackRepository) {
-        this.feedbackRepository = feedbackRepository;
-    }
 
     @Override
     public List<FeedbackDto> getAllFeedback() {
@@ -46,12 +44,12 @@ public class FeedbackServiceImpl implements FeedbackService {
     }
 
     @Override
-    public void editFeedback(Feedback feedback, Long id) {
+    public void editFeedback(FeedbackDto feedbackDto, Long id) {
         feedbackRepository.findById(id)
                 .orElseThrow(()-> new ResourceNotFoundException("Feedback with id " + id + " not found"));
-        feedback.setId(id);
-        feedback.setFeedbackDate(LocalDateTime.now().toLocalDate());
-        feedbackRepository.save(feedback);
+        feedbackDto.setId(id);
+        feedbackDto.setFeedbackDate(LocalDateTime.now().toLocalDate());
+        feedbackRepository.save(FeedbackMapper.mapToFeedback(feedbackDto));
     }
 
     @Override

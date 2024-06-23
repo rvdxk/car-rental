@@ -10,6 +10,6 @@ public interface FeedbackService {
     List<FeedbackDto> getAllFeedback();
     FeedbackDto getFeedbackById(Long id);
     void addFeedback(Feedback feedback);
-    void editFeedback(Feedback feedback, Long id);
+    void editFeedback(FeedbackDto feedbackDto, Long id);
     void deleteFeedback(Long id);
 }

@@ -30,6 +30,10 @@ public class User implements UserDetails {
     @OneToOne(orphanRemoval = true, cascade = CascadeType.ALL)
     private Customer customer;
 
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    @JsonIgnore
+    private List<Feedback> feedbacks;
+
     @Column(nullable = false)
     private String firstName;
 
