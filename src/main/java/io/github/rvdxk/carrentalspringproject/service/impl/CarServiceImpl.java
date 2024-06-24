@@ -26,7 +26,7 @@ public class CarServiceImpl implements CarService {
 
 
     @Override
-    public List<Car> getAllCars() {
+    public List<Car> findAllCars() {
         List<Car> carsList = carRepository.findAll();
 
         carsList.forEach(car -> {
@@ -49,7 +49,7 @@ public class CarServiceImpl implements CarService {
     }
 
     @Override
-    public CarDto getCarById(Long id) {
+    public CarDto findCarById(Long id) {
         Car car = carRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Car with id " + id + " not found"));
 
@@ -68,7 +68,7 @@ public class CarServiceImpl implements CarService {
     }
 
     @Override
-    public CarLocation getCarLocationById(Long id) {
+    public CarLocation findCarLocationById(Long id) {
         CarLocation carLocation = carLocationRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("CarLocation with id " + id + " not found"));
         return carLocation;

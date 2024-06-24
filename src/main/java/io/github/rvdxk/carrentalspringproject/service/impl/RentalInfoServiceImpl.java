@@ -19,13 +19,13 @@ public class RentalInfoServiceImpl implements RentalInfoService {
 
 
     @Override
-    public List<RentalInfo> getAllRentalsInfo() {
+    public List<RentalInfo> findAllRentalsInfo() {
         List<RentalInfo> getAllRentalsInfo = rentalInfoRepository.findAll();
         return getAllRentalsInfo;
     }
 
     @Override
-    public RentalInfo getRentalInfoById(Long id) {
+    public RentalInfo findRentalInfoById(Long id) {
         RentalInfo rentalInfo = rentalInfoRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Rental information with id: " + id + " not found"));
         return rentalInfo;

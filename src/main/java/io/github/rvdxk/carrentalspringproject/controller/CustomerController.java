@@ -1,17 +1,13 @@
 package io.github.rvdxk.carrentalspringproject.controller;
 
 import io.github.rvdxk.carrentalspringproject.dto.CustomerDto;
-import io.github.rvdxk.carrentalspringproject.entity.User;
 import io.github.rvdxk.carrentalspringproject.service.CustomerService;
-import io.github.rvdxk.carrentalspringproject.service.UserService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
@@ -40,14 +36,14 @@ public class CustomerController {
     }
 
     @GetMapping("/customers")
-    public ResponseEntity<List<CustomerDto>> getAllCustomers(){
-        List<CustomerDto> customerDtoList = customerService.getAllCustomers();
+    public ResponseEntity<List<CustomerDto>> findAllCustomers(){
+        List<CustomerDto> customerDtoList = customerService.findAllCustomers();
         return new ResponseEntity<>(customerDtoList, HttpStatus.OK);
     }
 
     @GetMapping("/customers/{id}")
-    public CustomerDto getCustomerById(@PathVariable("id") Long customerId){
-        CustomerDto customerDto = customerService.getCustomerById(customerId);
+    public CustomerDto findCustomerById(@PathVariable("id") Long customerId){
+        CustomerDto customerDto = customerService.findCustomerById(customerId);
         return customerDto;
     }
 

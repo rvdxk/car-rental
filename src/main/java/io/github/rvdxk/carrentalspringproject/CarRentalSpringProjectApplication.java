@@ -12,6 +12,6 @@ public class CarRentalSpringProjectApplication {
 
 }
 
-
-//zmienic get na find
-//zrobic refresh token by nie trzeba tworzyc nowego usera/admina za kazdym uwierzytelnianiem
+//feedback po edicie java.lang.NullPointerException: Cannot invoke
+// "io.github.rvdxk.carrentalspringproject.entity.User.getEmail()"
+// because the return value of "io.github.rvdxk.carrentalspringproject.entity.Feedback.getUser()" is null

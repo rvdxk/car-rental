@@ -46,22 +46,22 @@ public class CarController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Car>> getAllCars(){
-        List<Car> carsList = carService.getAllCars();
+    public ResponseEntity<List<Car>> findAllCars(){
+        List<Car> carsList = carService.findAllCars();
         return new ResponseEntity<>(carsList, HttpStatus.OK);
     }
 
 
     @GetMapping("/{id}")
-    public CarDto getCarById(@PathVariable("id") Long id){
-        CarDto carDto = carService.getCarById(id);
+    public CarDto findCarById(@PathVariable("id") Long id){
+        CarDto carDto = carService.findCarById(id);
         return carDto;
     }
 
 
     @GetMapping("/{id}/car-location")
-    public CarLocation getCarLocationById(@PathVariable("id") Long id){
-        return carService.getCarLocationById(id);
+    public CarLocation findCarLocationById(@PathVariable("id") Long id){
+        return carService.findCarLocationById(id);
     }
 
 

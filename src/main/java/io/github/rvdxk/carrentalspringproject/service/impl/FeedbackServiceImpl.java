@@ -20,7 +20,7 @@ public class FeedbackServiceImpl implements FeedbackService {
     private final FeedbackRepository feedbackRepository;
 
     @Override
-    public List<FeedbackDto> getAllFeedback() {
+    public List<FeedbackDto> findAllFeedback() {
         List<Feedback> getAllFeedback = feedbackRepository.findAll();
         List<FeedbackDto> getAllFeedbackDto = getAllFeedback.stream()
                 .map((feedback)->FeedbackMapper.mapToFeedbackDto(feedback))
@@ -29,7 +29,7 @@ public class FeedbackServiceImpl implements FeedbackService {
     }
 
     @Override
-    public FeedbackDto getFeedbackById(Long id) {
+    public FeedbackDto findFeedbackById(Long id) {
         Feedback feedback = feedbackRepository.findById(id)
                 .orElseThrow(()-> new ResourceNotFoundException("Feedback with id " + id + " not found"));
         FeedbackDto feedbackDto = FeedbackMapper.mapToFeedbackDto(feedback);

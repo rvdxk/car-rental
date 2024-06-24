@@ -25,7 +25,7 @@ public class CustomerServiceImpl implements CustomerService {
 
 
     @Override
-    public List<CustomerDto> getAllCustomers() {
+    public List<CustomerDto> findAllCustomers() {
         List<Customer> customersList = customerRepository.findAll();
         List<CustomerDto> customersDtoList = customersList.stream()
                 .map((customer) -> CustomerMapper.mapToCustomerDto(customer))
@@ -51,7 +51,7 @@ public class CustomerServiceImpl implements CustomerService {
 
 
     @Override
-    public CustomerDto getCustomerById(Long customerId) {
+    public CustomerDto findCustomerById(Long customerId) {
         Customer customer = customerRepository.findById(customerId)
                 .orElseThrow(()-> new ResourceNotFoundException("Customer with id " + customerId + " not found"));
         return CustomerMapper.mapToCustomerDto(customer);
