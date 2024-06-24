@@ -8,7 +8,7 @@ public class FeedbackMapper {
     public static FeedbackDto mapToFeedbackDto(Feedback feedback){
         return FeedbackDto.builder()
                 .id(feedback.getId())
-                .email(feedback.getUser().getEmail())
+                .email(feedback.getEmail())
                 .feedbackDate(feedback.getFeedbackDate())
                 .rating(feedback.getRating())
                 .comments(feedback.getComments())
@@ -18,6 +18,7 @@ public class FeedbackMapper {
     public static Feedback mapToFeedback(FeedbackDto feedbackDto){
         return Feedback.builder()
                 .id(feedbackDto.getId())
+                .email(feedbackDto.getEmail())
                 .feedbackDate(feedbackDto.getFeedbackDate())
                 .rating(feedbackDto.getRating())
                 .comments(feedbackDto.getComments())

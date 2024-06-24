@@ -1,10 +1,7 @@
 package io.github.rvdxk.carrentalspringproject.entity;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Max;
-import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.*;
 import lombok.*;
 import net.minidev.json.annotate.JsonIgnore;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -28,6 +25,10 @@ public class Feedback {
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     @JsonIgnore
     private User user;
+
+    @Column(name = "email")
+    @JsonIgnore
+    private String email;
 
     @Column
     @DateTimeFormat(pattern = "yyyy-MM-dd")

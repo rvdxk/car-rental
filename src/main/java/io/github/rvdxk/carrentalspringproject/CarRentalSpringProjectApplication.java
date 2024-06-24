@@ -11,7 +11,3 @@ public class CarRentalSpringProjectApplication {
 	}
 
 }
-
-//feedback po edicie java.lang.NullPointerException: Cannot invoke
-// "io.github.rvdxk.carrentalspringproject.entity.User.getEmail()"
-// because the return value of "io.github.rvdxk.carrentalspringproject.entity.Feedback.getUser()" is null

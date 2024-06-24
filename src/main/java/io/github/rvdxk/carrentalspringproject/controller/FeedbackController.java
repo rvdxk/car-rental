@@ -3,6 +3,7 @@ package io.github.rvdxk.carrentalspringproject.controller;
 import io.github.rvdxk.carrentalspringproject.dto.FeedbackDto;
 import io.github.rvdxk.carrentalspringproject.entity.Feedback;
 import io.github.rvdxk.carrentalspringproject.entity.User;
+import io.github.rvdxk.carrentalspringproject.mapper.FeedbackMapper;
 import io.github.rvdxk.carrentalspringproject.service.FeedbackService;
 import io.github.rvdxk.carrentalspringproject.service.UserService;
 import jakarta.validation.Valid;
@@ -31,6 +32,7 @@ public class FeedbackController {
                               @RequestBody @Valid Feedback feedback){
         User user = userService.findUserById(userId);
         feedback.setUser(user);
+        feedback.setEmail(user.getEmail());
         feedbackService.addFeedback(feedback);
         return "Feedback successfully added!";
     }
@@ -52,7 +54,10 @@ public class FeedbackController {
     public String editFeedback(@PathVariable("userId") Long userId,
                                @PathVariable("feedbackId") Long feedbackId,
                                @RequestBody @Valid FeedbackDto feedbackDto){
-        userService.findUserById(userId);
+        User user = userService.findUserById(userId);
+        Feedback feedback = FeedbackMapper.mapToFeedback(feedbackDto);
+        feedback.setUser(user);
+        feedback.setEmail(user.getEmail());
         feedbackService.editFeedback(feedbackDto, feedbackId);
         return "Feedback successfully edited!";
     }

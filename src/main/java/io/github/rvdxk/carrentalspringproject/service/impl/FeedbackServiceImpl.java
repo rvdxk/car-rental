@@ -45,11 +45,13 @@ public class FeedbackServiceImpl implements FeedbackService {
 
     @Override
     public void editFeedback(FeedbackDto feedbackDto, Long id) {
-        feedbackRepository.findById(id)
-                .orElseThrow(()-> new ResourceNotFoundException("Feedback with id " + id + " not found"));
-        feedbackDto.setId(id);
-        feedbackDto.setFeedbackDate(LocalDateTime.now().toLocalDate());
-        feedbackRepository.save(FeedbackMapper.mapToFeedback(feedbackDto));
+        Feedback existingFeedback = feedbackRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Feedback with id " + id + " not found"));
+        existingFeedback.setFeedbackDate(LocalDateTime.now().toLocalDate());
+        existingFeedback.setRating(feedbackDto.getRating());
+        existingFeedback.setComments(feedbackDto.getComments());
+
+        feedbackRepository.save(existingFeedback);
     }
 
     @Override
