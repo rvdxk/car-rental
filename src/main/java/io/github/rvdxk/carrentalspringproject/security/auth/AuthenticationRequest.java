@@ -1,4 +1,4 @@
-package io.github.rvdxk.carrentalspringproject.auth;
+package io.github.rvdxk.carrentalspringproject.security.auth;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,8 +9,9 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class AuthenticationResponse {
+public class AuthenticationRequest {
 
-    private String token;
+    private String email;
+    String password;
 
 }

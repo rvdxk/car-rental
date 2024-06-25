@@ -1,4 +1,4 @@
-package io.github.rvdxk.carrentalspringproject.auth;
+package io.github.rvdxk.carrentalspringproject.security.auth;
 
 
 import lombok.RequiredArgsConstructor;

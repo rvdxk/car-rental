@@ -1,6 +1,6 @@
-package io.github.rvdxk.carrentalspringproject.auth;
+package io.github.rvdxk.carrentalspringproject.security.auth;
 
-import io.github.rvdxk.carrentalspringproject.config.JwtService;
+import io.github.rvdxk.carrentalspringproject.security.jwt.JwtService;
 import io.github.rvdxk.carrentalspringproject.entity.Role;
 import io.github.rvdxk.carrentalspringproject.entity.User;
 import io.github.rvdxk.carrentalspringproject.repository.UserRepository;

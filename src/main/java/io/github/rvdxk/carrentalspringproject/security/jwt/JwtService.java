@@ -1,4 +1,4 @@
-package io.github.rvdxk.carrentalspringproject.config;
+package io.github.rvdxk.carrentalspringproject.security.jwt;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
