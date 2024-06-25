@@ -1,5 +1,6 @@
 package io.github.rvdxk.carrentalspringproject.controller;
 
+import io.github.rvdxk.carrentalspringproject.dto.RentalInfoDto;
 import io.github.rvdxk.carrentalspringproject.entity.RentalInfo;
 import io.github.rvdxk.carrentalspringproject.service.RentalInfoService;
 import jakarta.validation.Valid;
@@ -14,22 +15,22 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/rental/info")
+@RequestMapping("/rental-info")
 public class RentalInfoController {
 
     @Autowired
     RentalInfoService rentalInfoService;
 
     @GetMapping
-    public ResponseEntity<List<RentalInfo>> findAllRentalsInfo(){
-        List<RentalInfo> rentalsInfoList = rentalInfoService.findAllRentalsInfo();
+    public ResponseEntity<List<RentalInfoDto>> findAllRentalsInfo(){
+        List<RentalInfoDto> rentalsInfoList = rentalInfoService.findAllRentalsInfo();
         return new ResponseEntity<>(rentalsInfoList, HttpStatus.OK);
     }
 
 
     @GetMapping("/{id}")
-    public RentalInfo findRentalInfoById(@PathVariable("id") Long infoId){
-        RentalInfo rentalInfo = rentalInfoService.findRentalInfoById(infoId);
+    public RentalInfoDto findRentalInfoById(@PathVariable("id") Long infoId){
+        RentalInfoDto rentalInfo = rentalInfoService.findRentalInfoById(infoId);
         return rentalInfo;
     }
 

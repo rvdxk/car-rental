@@ -1,5 +1,7 @@
 package io.github.rvdxk.carrentalspringproject.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import io.github.rvdxk.carrentalspringproject.constant.PaymentStatus;
 import io.github.rvdxk.carrentalspringproject.constant.RentalStatus;
 import jakarta.persistence.*;
 import lombok.*;
@@ -37,9 +39,6 @@ public class RentalInfo {
 
     @Column(nullable = false)
     private LocalDate returnDate;
-
-    @Column(nullable = false)
-    private double totalCost;
 
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)

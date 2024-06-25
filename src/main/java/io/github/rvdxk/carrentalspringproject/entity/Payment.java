@@ -1,10 +1,12 @@
 package io.github.rvdxk.carrentalspringproject.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.github.rvdxk.carrentalspringproject.constant.PaymentMethod;
+import io.github.rvdxk.carrentalspringproject.constant.PaymentStatus;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 
 @Getter
@@ -22,13 +24,22 @@ public class Payment {
 
     @OneToOne
     @JoinColumn(name = "rental_info_id")
+    @JsonIgnore
     private RentalInfo rentalInfo;
 
     @Column(nullable = false)
-    private Date paymentDate;
+    private double totalCost;
+
+    @Column(nullable = false)
+    private LocalDate paymentDate;
 
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private PaymentMethod paymentMethod;
+
+    @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
+    private PaymentStatus paymentStatus;
+
 
 }

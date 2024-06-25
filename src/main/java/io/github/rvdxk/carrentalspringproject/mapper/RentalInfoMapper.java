@@ -14,7 +14,7 @@ public class RentalInfoMapper {
                 .payment(rentalInfoDto.getPayment())
                 .rentalDate(rentalInfoDto.getRentalDate())
                 .returnDate(rentalInfoDto.getReturnDate())
-                .totalCost(rentalInfoDto.getTotalCost())
+
                 .build();
     }
 
@@ -27,7 +27,6 @@ public class RentalInfoMapper {
                 .payment(rentalInfo.getPayment())
                 .rentalDate(rentalInfo.getRentalDate())
                 .returnDate(rentalInfo.getReturnDate())
-                .totalCost(rentalInfo.getTotalCost())
                 .build();
     }
 }

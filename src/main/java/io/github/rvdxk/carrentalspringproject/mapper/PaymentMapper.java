@@ -8,7 +8,7 @@ public class PaymentMapper {
     public static Payment mapToPayment(PaymentDto paymentDto){
         return Payment.builder()
                 .id(paymentDto.getId())
-                .rentalInfo(paymentDto.getRentalInfo())
+                .totalCost(paymentDto.getTotalCost())
                 .paymentDate(paymentDto.getPaymentDate())
                 .paymentMethod(paymentDto.getPaymentMethod())
                 .build();
@@ -17,7 +17,7 @@ public class PaymentMapper {
     public static PaymentDto mapToPaymentDto(Payment payment){
         return PaymentDto.builder()
                 .id(payment.getId())
-                .rentalInfo(payment.getRentalInfo())
+                .totalCost(payment.getTotalCost())
                 .paymentDate(payment.getPaymentDate())
                 .paymentMethod(payment.getPaymentMethod())
                 .build();

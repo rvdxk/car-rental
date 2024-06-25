@@ -39,7 +39,4 @@ public class RentalInfoDto {
     @NotNull(message = "Please, select the return date.")
     private LocalDate returnDate;
 
-    @NotNull(message = "Please, enter total cost.")
-    private double totalCost;
-
 }

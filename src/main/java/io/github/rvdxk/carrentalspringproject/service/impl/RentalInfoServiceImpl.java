@@ -1,34 +1,45 @@
 package io.github.rvdxk.carrentalspringproject.service.impl;
 
+import io.github.rvdxk.carrentalspringproject.constant.PaymentStatus;
 import io.github.rvdxk.carrentalspringproject.constant.RentalStatus;
+import io.github.rvdxk.carrentalspringproject.dto.RentalInfoDto;
 import io.github.rvdxk.carrentalspringproject.entity.RentalInfo;
 import io.github.rvdxk.carrentalspringproject.exception.ResourceNotFoundException;
+import io.github.rvdxk.carrentalspringproject.mapper.RentalInfoMapper;
 import io.github.rvdxk.carrentalspringproject.repository.RentalInfoRepository;
+import io.github.rvdxk.carrentalspringproject.service.PaymentService;
 import io.github.rvdxk.carrentalspringproject.service.RentalInfoService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
 public class RentalInfoServiceImpl implements RentalInfoService {
 
     private final RentalInfoRepository rentalInfoRepository;
+    private final PaymentServiceImpl paymentService;
 
 
     @Override
-    public List<RentalInfo> findAllRentalsInfo() {
-        List<RentalInfo> getAllRentalsInfo = rentalInfoRepository.findAll();
-        return getAllRentalsInfo;
+    public List<RentalInfoDto> findAllRentalsInfo() {
+        List<RentalInfo> rentalInfoList = rentalInfoRepository.findAll();
+        List<RentalInfoDto> rentalInfoDtoList = rentalInfoList.stream()
+                .map((rental) -> RentalInfoMapper.mapToRentalInfoDto(rental))
+                .collect(Collectors.toUnmodifiableList());
+
+        return rentalInfoDtoList;
     }
 
     @Override
-    public RentalInfo findRentalInfoById(Long id) {
+    public RentalInfoDto findRentalInfoById(Long id) {
         RentalInfo rentalInfo = rentalInfoRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Rental information with id: " + id + " not found"));
-        return rentalInfo;
+
+        return RentalInfoMapper.mapToRentalInfoDto(rentalInfo);
     }
 
     @Override
@@ -44,7 +55,6 @@ public class RentalInfoServiceImpl implements RentalInfoService {
 
         updateInfo.setRentalDate(rentalInfo.getRentalDate());
         updateInfo.setReturnDate(rentalInfo.getReturnDate());
-        updateInfo.setTotalCost(rentalInfo.getTotalCost());
         updateInfo.setRentalStatus(addRentalStatus(rentalInfo));
 
         rentalInfoRepository.save(updateInfo);
@@ -63,6 +73,7 @@ public class RentalInfoServiceImpl implements RentalInfoService {
         }
 
         LocalDate now = LocalDate.now();
+
         LocalDate rentalDate = rentalInfo.getRentalDate();
         LocalDate returnDate = rentalInfo.getReturnDate();
 
