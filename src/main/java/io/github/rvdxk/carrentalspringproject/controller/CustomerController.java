@@ -1,6 +1,7 @@
 package io.github.rvdxk.carrentalspringproject.controller;
 
 import io.github.rvdxk.carrentalspringproject.dto.CustomerDto;
+import io.github.rvdxk.carrentalspringproject.entity.Customer;
 import io.github.rvdxk.carrentalspringproject.service.CustomerService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
@@ -29,9 +30,9 @@ public class CustomerController {
 
     @PostMapping("/{id}/customers")
     @ResponseStatus(HttpStatus.CREATED)
-    public String addCustomer(@RequestBody @Valid CustomerDto customerDto,
+    public String addCustomer(@RequestBody @Valid Customer customer,
                               @PathVariable("id") Long id){
-        customerService.addCustomer(customerDto, id);
+        customerService.addCustomer(customer, id);
         return "Customer successfully added!";
     }
 
@@ -50,7 +51,6 @@ public class CustomerController {
     @PutMapping("/customers/{id}")
     public String updateCustomer(@PathVariable("id") Long customerId,
                                @RequestBody @Valid CustomerDto customerDto){
-        customerDto.setId(customerId);
         customerService.updateCustomer(customerDto, customerId);
         return "Customer successfully updated!";
     }

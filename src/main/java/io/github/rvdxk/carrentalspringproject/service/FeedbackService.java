@@ -8,8 +8,8 @@ import java.util.List;
 public interface FeedbackService {
 
     List<FeedbackDto> findAllFeedback();
-    FeedbackDto findFeedbackById(Long id);
-    void addFeedback(Feedback feedback);
-    void editFeedback(FeedbackDto feedbackDto, Long id);
-    void deleteFeedback(Long id);
+    FeedbackDto findFeedbackById(Long userId, Long feedbackId);
+    void addFeedback(Feedback feedback, Long id);
+    void editFeedback(FeedbackDto feedbackDto, Long userI, Long feedbackIdd);
+    void deleteFeedback(Long userId, Long feedbackId);
 }

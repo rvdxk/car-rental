@@ -30,15 +30,14 @@ public class CustomerServiceImpl implements CustomerService {
         List<CustomerDto> customersDtoList = customersList.stream()
                 .map((customer) -> CustomerMapper.mapToCustomerDto(customer))
                 .collect(Collectors.toUnmodifiableList());
+
         return customersDtoList;
     }
 
     @Override
-    public void addCustomer(CustomerDto customerDto, Long customerId) {
-        User user = userRepository.findById(customerId)
-                .orElseThrow(() -> new ResourceNotFoundException("Customer with id " + customerId + " not found"));
-
-        Customer customer = CustomerMapper.mapToCustomer(customerDto);
+    public void addCustomer(Customer customer, Long id) {
+        User user = userRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("User with id " + id + " not found"));
 
         if(user.getCustomer() != null) {
 
@@ -51,26 +50,27 @@ public class CustomerServiceImpl implements CustomerService {
 
 
     @Override
-    public CustomerDto findCustomerById(Long customerId) {
-        Customer customer = customerRepository.findById(customerId)
-                .orElseThrow(()-> new ResourceNotFoundException("Customer with id " + customerId + " not found"));
+    public CustomerDto findCustomerById(Long id) {
+        Customer customer = customerRepository.findById(id)
+                .orElseThrow(()-> new ResourceNotFoundException("Customer with id " + id + " not found"));
         return CustomerMapper.mapToCustomerDto(customer);
     }
 
     @Override
-    public void updateCustomer(CustomerDto customerDto, Long customerId) {
-        customerRepository.findById(customerId)
-                .orElseThrow(()-> new ResourceNotFoundException("Customer with id " + customerId + " not found"));
+    public void updateCustomer(CustomerDto customerDto, Long id) {
+        customerRepository.findById(id)
+                .orElseThrow(()-> new ResourceNotFoundException("Customer with id " + id + " not found"));
+        customerDto.setId(id);
 
         customerRepository.save(CustomerMapper.mapToCustomer(customerDto));
 
     }
 
     @Override
-    public void deleteCustomer(Long customerId) {
-        customerRepository.findById(customerId)
-                .orElseThrow(()-> new ResourceNotFoundException("Customer with id " + customerId + " not found"));
+    public void deleteCustomer(Long id) {
+        customerRepository.findById(id)
+                .orElseThrow(()-> new ResourceNotFoundException("Customer with id " + id + " not found"));
 
-        customerRepository.deleteById(customerId);
+        customerRepository.deleteById(id);
     }
 }

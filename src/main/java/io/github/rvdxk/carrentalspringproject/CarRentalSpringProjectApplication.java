@@ -11,3 +11,6 @@ public class CarRentalSpringProjectApplication {
 	}
 
 }
+
+//refaktor controler/implementacja
+//pododawac response entity do controllerow
