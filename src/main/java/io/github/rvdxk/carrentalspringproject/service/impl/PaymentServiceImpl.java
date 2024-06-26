@@ -10,9 +10,9 @@ import io.github.rvdxk.carrentalspringproject.mapper.PaymentMapper;
 import io.github.rvdxk.carrentalspringproject.repository.PaymentRepository;
 import io.github.rvdxk.carrentalspringproject.repository.RentalInfoRepository;
 import io.github.rvdxk.carrentalspringproject.service.PaymentService;
-import io.github.rvdxk.carrentalspringproject.service.RentalInfoService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -22,7 +22,6 @@ import java.util.List;
 public class PaymentServiceImpl implements PaymentService {
 
     private final PaymentRepository paymentRepository;
-
     private final RentalInfoRepository rentalInfoRepository;
 
     @Override
@@ -31,11 +30,12 @@ public class PaymentServiceImpl implements PaymentService {
         return findAllPayments;
     }
 
+    @Transactional
     @Override
-    public void addPayment(Payment payment,
-                           Long id) {
-        RentalInfo rentalInfo = rentalInfoRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Rental information with id " + id + " not found"));
+    public void addPayment(Payment payment, Long rentalInfoId) {
+
+        RentalInfo rentalInfo = rentalInfoRepository.findById(rentalInfoId)
+                .orElseThrow(() -> new ResourceNotFoundException("Rental information with id " + rentalInfoId + " not found"));
 
         if (rentalInfo.getPayment() != null){
             paymentRepository.delete(rentalInfo.getPayment());
@@ -49,13 +49,14 @@ public class PaymentServiceImpl implements PaymentService {
         rentalInfoRepository.save(rentalInfo);
     }
 
+    @Transactional
     @Override
-    public void updatePayment(PaymentDto paymentDto, Long id) {
-        RentalInfo rentalInfo = rentalInfoRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Rental information with id " + id + " not found"));
+    public void updatePayment(PaymentDto paymentDto, Long rentalInfoId, Long paymentId) {
+        RentalInfo rentalInfo = rentalInfoRepository.findById(rentalInfoId)
+                .orElseThrow(() -> new ResourceNotFoundException("Rental information with id " + rentalInfoId + " not found"));
 
-        Payment existingPayment = paymentRepository.findById(id)
-                .orElseThrow(()-> new ResourceNotFoundException("Payment with id " + id + " not found"));
+        Payment existingPayment = paymentRepository.findById(paymentId)
+                .orElseThrow(()-> new ResourceNotFoundException("Payment with id " + paymentId + " not found"));
 
         existingPayment.setTotalCost(paymentDto.getTotalCost());
         existingPayment.setPaymentDate(paymentDto.getPaymentDate());
@@ -67,19 +68,31 @@ public class PaymentServiceImpl implements PaymentService {
     }
 
     @Override
-    public PaymentDto findPaymentById(Long id) {
-        Payment payment = paymentRepository.findById(id)
-                .orElseThrow(()-> new ResourceNotFoundException("Payment with id " + id + " not found"));
-        PaymentDto paymentDto = PaymentMapper.mapToPaymentDto(payment);
+    public PaymentDto findPaymentById(Long rentalInfoId, Long paymentId) {
+        RentalInfo rentalInfo = rentalInfoRepository.findById(rentalInfoId)
+                .orElseThrow(() -> new ResourceNotFoundException("Rental information with id " + rentalInfoId + " not found"));
+
+        Payment existingPayment = paymentRepository.findById(paymentId)
+                .orElseThrow(()-> new ResourceNotFoundException("Payment with id " + paymentId + " not found"));
+
+        PaymentDto paymentDto = PaymentMapper.mapToPaymentDto(existingPayment);
+
         return paymentDto;
     }
 
+    @Transactional
     @Override
-    public void deletePayment(Long id) {
-        paymentRepository.findById(id)
-                .orElseThrow(()-> new ResourceNotFoundException("Payment with id " + id + " not found"));
+    public void deletePayment(Long rentalInfoId, Long paymentId) {
+        RentalInfo rentalInfo = rentalInfoRepository.findById(rentalInfoId)
+                .orElseThrow(() -> new ResourceNotFoundException("Rental information with id " + rentalInfoId + " not found"));
 
-        paymentRepository.deleteById(id);
+        paymentRepository.findById(paymentId)
+                .orElseThrow(()-> new ResourceNotFoundException("Payment with id " + paymentId + " not found"));
+
+        rentalInfo.setPayment(null);
+        rentalInfoRepository.save(rentalInfo);
+
+        paymentRepository.deleteById(paymentId);
 
     }
 

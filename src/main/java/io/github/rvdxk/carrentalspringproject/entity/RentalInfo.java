@@ -1,12 +1,11 @@
 package io.github.rvdxk.carrentalspringproject.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import io.github.rvdxk.carrentalspringproject.constant.PaymentStatus;
 import io.github.rvdxk.carrentalspringproject.constant.RentalStatus;
 import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Getter
 @Setter
@@ -31,7 +30,7 @@ public class RentalInfo {
     @JoinColumn(name = "car_location_id", nullable = false)
     private Long carLocationId;
 
-    @OneToOne(mappedBy = "rentalInfo", cascade = CascadeType.ALL)
+    @OneToOne(mappedBy = "rentalInfo", cascade = CascadeType.ALL, orphanRemoval = true)
     private Payment payment;
 
     @Column(nullable = false)

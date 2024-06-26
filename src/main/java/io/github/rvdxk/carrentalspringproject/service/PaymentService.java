@@ -8,8 +8,8 @@ import java.util.List;
 public interface PaymentService {
     List<Payment> findAllPayments();
     void addPayment(Payment payment, Long id);
-    void updatePayment(PaymentDto paymentDto, Long id);
-    PaymentDto findPaymentById(Long id);
-    void deletePayment(Long id);
+    void updatePayment(PaymentDto paymentDto, Long rentalInfoId, Long paymentId);
+    PaymentDto findPaymentById(Long rentalInfoId, Long paymentId);
+    void deletePayment(Long rentalInfoId, Long paymentId);
 
 }
