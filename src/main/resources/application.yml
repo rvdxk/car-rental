@@ -1,0 +1,7 @@
+spring:
+  application:
+    name: car-rental
+  main:
+    banner-mode: off
+  profiles:
+    active: local
