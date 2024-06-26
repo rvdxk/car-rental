@@ -53,17 +53,6 @@ public class CarServiceImpl implements CarService {
         Car car = carRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Car with id " + id + " not found"));
 
-        CarParams carParams = car.getCarParams();
-        if (carParams == null) {
-            throw new ResourceNotFoundException("Car with id " + id + " not found");
-        }
-        car.setId(car.getId());
-        car.setMake(car.getMake());
-        car.setModel(car.getModel());
-        car.setPlateNumber(car.getPlateNumber());
-        car.setCostPerDay(car.getCostPerDay());
-        car.setAvailable(car.isAvailable());
-        car.setCarParams(carParams);
        return CarMapper.mapToCarDto(car);
     }
 
@@ -117,25 +106,6 @@ public class CarServiceImpl implements CarService {
         car.setCostPerDay(carDto.getCostPerDay());
         car.setAvailable(carDto.isAvailable());
 
-        if (carDto.getCarParams() != null) {
-            CarParams carParams = car.getCarParams();
-            if (carParams == null) {
-                carParams = new CarParams();
-                carParams.setId(id);
-            }
-            carParams.setMake(carDto.getCarParams().getMake());
-            carParams.setModel(carDto.getCarParams().getModel());
-            carParams.setProdYear(carDto.getCarParams().getProdYear());
-            carParams.setType(carDto.getCarParams().getType());
-            carParams.setNumberOfDoors(carDto.getCarParams().getNumberOfDoors());
-            carParams.setNumberOfSeats(carDto.getCarParams().getNumberOfSeats());
-            carParams.setGearbox(carDto.getCarParams().getGearbox());
-            carParams.setDriveWheels(carDto.getCarParams().getDriveWheels());
-
-            car.setCarParams(carParams);
-        } else {
-            car.setCarParams(null);
-        }
         carRepository.save(car);
     }
 
@@ -185,8 +155,6 @@ public class CarServiceImpl implements CarService {
                     .orElseThrow(() -> new ResourceNotFoundException("Car with id " + id + " not found"));
             car.setCarLocation(updateCarLocation);
             carRepository.save(car);
-        } else {
-            throw new ResourceNotFoundException("CarParams with id " + id + " not found");
         }
     }
 

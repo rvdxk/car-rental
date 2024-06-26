@@ -18,8 +18,8 @@ import java.util.List;
 @RequestMapping("/rental-info")
 public class RentalInfoController {
 
-    @Autowired
-    RentalInfoService rentalInfoService;
+
+    private final RentalInfoService rentalInfoService;
 
     @GetMapping
     public ResponseEntity<List<RentalInfoDto>> findAllRentalsInfo(){
@@ -51,6 +51,6 @@ public class RentalInfoController {
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteRentalInfo(@PathVariable("id") Long infoId){
         rentalInfoService.deleteRentalInfo(infoId);
-        return new ResponseEntity<>("Rental information successfully deleted!", HttpStatus.NO_CONTENT;
+        return new ResponseEntity<>("Rental information successfully deleted!", HttpStatus.NO_CONTENT);
     }
 }

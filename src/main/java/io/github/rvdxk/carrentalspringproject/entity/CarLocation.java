@@ -1,6 +1,7 @@
 package io.github.rvdxk.carrentalspringproject.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import io.github.rvdxk.carrentalspringproject.constant.Country;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -36,6 +37,6 @@ public class CarLocation {
     @Column(nullable = false)
     private String postalCode;
 
-    @Column(nullable = false)
-    private String country;
+    @Enumerated(EnumType.STRING)
+    private Country country;
 }

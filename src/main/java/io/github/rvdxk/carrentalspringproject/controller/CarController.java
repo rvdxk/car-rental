@@ -7,6 +7,7 @@ import io.github.rvdxk.carrentalspringproject.entity.CarParams;
 import io.github.rvdxk.carrentalspringproject.service.CarService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,12 +16,12 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@AllArgsConstructor
+@RequiredArgsConstructor
 @RequestMapping("/cars")
 public class CarController {
 
-    @Autowired
-    public CarService carService;
+
+    private final CarService carService;
 
     @PostMapping("/add")
     public ResponseEntity<String> addCar(@RequestBody @Valid CarDto carDto){

@@ -5,6 +5,7 @@ import io.github.rvdxk.carrentalspringproject.entity.Customer;
 import io.github.rvdxk.carrentalspringproject.service.CustomerService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,20 +21,19 @@ import java.util.Map;
 
 
 @RestController
-@AllArgsConstructor
+@RequiredArgsConstructor
 @RequestMapping("/users")
 public class CustomerController {
 
-    @Autowired
-    private CustomerService customerService;
+
+    private final CustomerService customerService;
 
 
     @PostMapping("/{id}/customers")
-    @ResponseStatus(HttpStatus.CREATED)
-    public String addCustomer(@RequestBody @Valid Customer customer,
-                              @PathVariable("id") Long id){
+    public ResponseEntity<String> addCustomer(@RequestBody @Valid Customer customer,
+                                              @PathVariable("id") Long id){
         customerService.addCustomer(customer, id);
-        return "Customer successfully added!";
+        return new ResponseEntity<>("Customer successfully added!", HttpStatus.CREATED);
     }
 
     @GetMapping("/customers")
@@ -43,34 +43,21 @@ public class CustomerController {
     }
 
     @GetMapping("/customers/{id}")
-    public CustomerDto findCustomerById(@PathVariable("id") Long customerId){
+    public ResponseEntity<CustomerDto> findCustomerById(@PathVariable("id") Long customerId){
         CustomerDto customerDto = customerService.findCustomerById(customerId);
-        return customerDto;
+        return new ResponseEntity<>(customerDto, HttpStatus.OK);
     }
 
     @PutMapping("/customers/{id}")
-    public String updateCustomer(@PathVariable("id") Long customerId,
-                               @RequestBody @Valid CustomerDto customerDto){
+    public ResponseEntity<String> updateCustomer(@PathVariable("id") Long customerId,
+                                                 @RequestBody @Valid CustomerDto customerDto){
         customerService.updateCustomer(customerDto, customerId);
-        return "Customer successfully updated!";
+        return new ResponseEntity<>("Customer successfully updated!", HttpStatus.OK);
     }
 
     @DeleteMapping("/customers/{id}")
-    public String deleteCustomer(@PathVariable("id")Long customerId){
+    public ResponseEntity<String> deleteCustomer(@PathVariable("id")Long customerId){
         customerService.deleteCustomer(customerId);
-        return "Customer successfully deleted!";
-    }
-
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
-    @ExceptionHandler(MethodArgumentNotValidException.class)
-    public Map<String, String> handleValidationExceptions(
-            MethodArgumentNotValidException ex) {
-        Map<String, String> errors = new HashMap<>();
-        ex.getBindingResult().getAllErrors().forEach((error) -> {
-            String fieldName = ((FieldError) error).getField();
-            String errorMessage = error.getDefaultMessage();
-            errors.put(fieldName, errorMessage);
-        });
-        return errors;
+        return new ResponseEntity<>("Customer successfully deleted!", HttpStatus.NO_CONTENT);
     }
 }
