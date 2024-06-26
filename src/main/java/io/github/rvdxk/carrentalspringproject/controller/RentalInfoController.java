@@ -29,29 +29,28 @@ public class RentalInfoController {
 
 
     @GetMapping("/{id}")
-    public RentalInfoDto findRentalInfoById(@PathVariable("id") Long infoId){
+    public ResponseEntity<RentalInfoDto> findRentalInfoById(@PathVariable("id") Long infoId){
         RentalInfoDto rentalInfo = rentalInfoService.findRentalInfoById(infoId);
-        return rentalInfo;
+        return new ResponseEntity<>(rentalInfo, HttpStatus.OK);
     }
 
     @PostMapping
-    @ResponseStatus(HttpStatus.CREATED)
-    public String addRentalInfo(@RequestBody @Valid RentalInfo rentalInfo){
+    public ResponseEntity<String> addRentalInfo(@RequestBody @Valid RentalInfo rentalInfo){
         rentalInfoService.addRentalInfo(rentalInfo);
-        return "Rental information successfully added!";
+        return new ResponseEntity<>("Rental information successfully added!", HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
-    public String updateRentalInfo(@PathVariable("id") Long rentalId,
-                                   @RequestBody @Valid RentalInfo rentalInfo){
+    public ResponseEntity<String> updateRentalInfo(@PathVariable("id") Long rentalId,
+                                                   @RequestBody @Valid RentalInfo rentalInfo){
         rentalInfo.setId(rentalId);
         rentalInfoService.updateRentalInfo(rentalId, rentalInfo);
-        return "Rental information successfully updated!";
+        return new ResponseEntity<>("Rental information successfully updated!", HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")
-    public String deleteRentalInfo(@PathVariable("id") Long infoId){
+    public ResponseEntity<String> deleteRentalInfo(@PathVariable("id") Long infoId){
         rentalInfoService.deleteRentalInfo(infoId);
-        return "Rental information successfully deleted!";
+        return new ResponseEntity<>("Rental information successfully deleted!", HttpStatus.NO_CONTENT;
     }
 }

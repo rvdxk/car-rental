@@ -23,26 +23,23 @@ public class CarController {
     public CarService carService;
 
     @PostMapping("/add")
-    @ResponseStatus(HttpStatus.CREATED)
-    public String addCar(@RequestBody @Valid CarDto carDto){
+    public ResponseEntity<String> addCar(@RequestBody @Valid CarDto carDto){
         carService.addCar(carDto);
-        return "Car successfully added!";
+        return new ResponseEntity<>("Car successfully added!", HttpStatus.CREATED);
     }
 
     @PostMapping("/{id}/parameters")
-    @ResponseStatus(HttpStatus.CREATED)
-    public String addCarParameters(@PathVariable("id") Long id,
-                                   @RequestBody @Valid CarParams carParams){
+    public ResponseEntity<String> addCarParameters(@PathVariable("id") Long id,
+                                                   @RequestBody @Valid CarParams carParams){
         carService.addCarParams(id, carParams);
-        return "Car parameters successfully added!";
+        return new ResponseEntity<>("Car parameters successfully added!", HttpStatus.CREATED);
     }
 
     @PostMapping("/{id}/car-location")
-    @ResponseStatus(HttpStatus.CREATED)
-    public String addCarLocation(@RequestBody @Valid CarLocation carLocation,
-                                 @PathVariable Long id){
+    public ResponseEntity<String> addCarLocation(@RequestBody @Valid CarLocation carLocation,
+                                                 @PathVariable Long id){
         carService.addCarLocation(id, carLocation);
-        return "Car location successfully added!";
+        return new ResponseEntity<>("Car location successfully added!", HttpStatus.CREATED);
     }
 
     @GetMapping
@@ -53,49 +50,49 @@ public class CarController {
 
 
     @GetMapping("/{id}")
-    public CarDto findCarById(@PathVariable("id") Long id){
+    public ResponseEntity<CarDto> findCarById(@PathVariable("id") Long id){
         CarDto carDto = carService.findCarById(id);
-        return carDto;
+        return new ResponseEntity<>(carDto, HttpStatus.OK);
     }
 
 
     @GetMapping("/{id}/car-location")
-    public CarLocation findCarLocationById(@PathVariable("id") Long id){
-        return carService.findCarLocationById(id);
+    public ResponseEntity<CarLocation> findCarLocationById(@PathVariable("id") Long id){
+        return new ResponseEntity<>(carService.findCarLocationById(id), HttpStatus.OK);
     }
 
 
     @PutMapping("/{id}")
-    public String updateCar(@PathVariable("id") Long id,
-                            @RequestBody @Valid CarDto carDto){
+    public ResponseEntity<String> updateCar(@PathVariable("id") Long id,
+                                            @RequestBody @Valid CarDto carDto){
         carService.updateCar(id, carDto);
-        return "Car successfully updated!";
+        return new ResponseEntity<>("Car successfully updated!", HttpStatus.OK);
     }
 
     @PutMapping("/{id}/parameters")
-    public String updateCarParams(@PathVariable(value = "id", required = true) Long id,
-                                  @RequestBody @Valid CarParams carParams){
+    public ResponseEntity<String> updateCarParams(@PathVariable(value = "id", required = true) Long id,
+                                                  @RequestBody @Valid CarParams carParams){
         carService.updateCarParam(id, carParams);
-        return "Car parameters successfully updated!";
+        return new ResponseEntity<>("Car parameters successfully updated!", HttpStatus.OK);
     }
 
     @PutMapping("/{id}/car-location")
-    public String updateCarLocation(@PathVariable("id") Long id,
-                                    @RequestBody @Valid CarLocation carLocation){
+    public ResponseEntity<String> updateCarLocation(@PathVariable("id") Long id,
+                                                    @RequestBody @Valid CarLocation carLocation){
         carService.updateCarLocation(carLocation, id);
-        return "Car location successfully updated!";
+        return new ResponseEntity<>("Car location successfully updated!", HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")
-    public String deleteCarById(@PathVariable("id") Long id){
+    public ResponseEntity<String> deleteCarById(@PathVariable("id") Long id){
         carService.deleteCar(id);
-        return "Car successfully deleted!";
+        return new ResponseEntity<>("Car successfully deleted!", HttpStatus.NO_CONTENT);
     }
 
     @DeleteMapping("/{id}/car-location")
-    public String deleteCarLocation(@PathVariable("id") Long id){
+    public ResponseEntity<String> deleteCarLocation(@PathVariable("id") Long id){
         carService.deleteCarLocation(id);
-        return "Car location successfully deleted!";
+        return new ResponseEntity<>("Car location successfully deleted!", HttpStatus.NO_CONTENT);
     }
 
 

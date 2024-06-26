@@ -21,7 +21,7 @@ public class PaymentController {
     @GetMapping("/rental-info/payments/all")
     public ResponseEntity<List<Payment>> getAllPayments() {
         List<Payment> payments = paymentService.findAllPayments();
-        return ResponseEntity.ok(payments);
+        return new ResponseEntity<>(payments, HttpStatus.OK);
     }
 
     @PostMapping("/rental-info/{rentalInfoId}/payments")
@@ -38,7 +38,7 @@ public class PaymentController {
 
         paymentService.updatePayment(paymentDto,rentalInfoId, paymentId);
 
-        return ResponseEntity.ok("Payment successfully updated!");
+        return new ResponseEntity<>("Payment successfully updated!", HttpStatus.OK);
     }
 
     @GetMapping("/rental-info/{rentalInfoId}/payments/{paymentId}")
@@ -46,7 +46,7 @@ public class PaymentController {
                                                      @PathVariable("paymentId") Long paymentId) {
         PaymentDto paymentDto = paymentService.findPaymentById(rentalInfoId, paymentId);
 
-        return ResponseEntity.ok(paymentDto);
+        return new ResponseEntity<>(paymentDto, HttpStatus.OK);
     }
 
     @DeleteMapping("/rental-info/{rentalInfoId}/payments/{paymentId}")
@@ -54,6 +54,6 @@ public class PaymentController {
                                                 @PathVariable("paymentId") Long paymentId) {
         paymentService.deletePayment(rentalInfoId, paymentId);
 
-        return ResponseEntity.ok("Payment successfully deleted!");
+        return new ResponseEntity<>("Payment successfully deleted!", HttpStatus.NO_CONTENT);
     }
 }

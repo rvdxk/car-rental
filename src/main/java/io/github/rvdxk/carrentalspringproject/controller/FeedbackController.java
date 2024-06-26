@@ -19,11 +19,10 @@ public class FeedbackController {
     private final FeedbackService feedbackService;
 
     @PostMapping("/{userId}/feedbacks/add")
-    @ResponseStatus(HttpStatus.CREATED)
-    public String addFeedback(@PathVariable("userId") Long userId,
-                              @RequestBody @Valid Feedback feedback){
+    public ResponseEntity<String> addFeedback(@PathVariable("userId") Long userId,
+                                              @RequestBody @Valid Feedback feedback){
         feedbackService.addFeedback(feedback, userId);
-        return "Feedback successfully added!";
+        return new ResponseEntity<>("Feedback successfully added!", HttpStatus.CREATED);
     }
     @GetMapping("/feedbacks")
     public ResponseEntity<List<FeedbackDto>> findAllFeedback(){
@@ -32,23 +31,24 @@ public class FeedbackController {
     }
 
     @GetMapping("/{userId}/feedbacks/{feedbackId}")
-    public FeedbackDto findFeedbackById(@PathVariable("userId") Long userId,
-                                        @PathVariable("feedbackId") Long feedbackId){
-        return feedbackService.findFeedbackById(userId, feedbackId);
+    public ResponseEntity<FeedbackDto> findFeedbackById(@PathVariable("userId") Long userId,
+                                                        @PathVariable("feedbackId") Long feedbackId){
+        FeedbackDto feedbackDto = feedbackService.findFeedbackById(userId, feedbackId);
+        return new ResponseEntity<>(feedbackDto, HttpStatus.OK);
     }
 
     @PutMapping("/{userId}/feedbacks/{feedbackId}")
-    public String editFeedback(@PathVariable("userId") Long userId,
-                               @PathVariable("feedbackId") Long feedbackId,
-                               @RequestBody @Valid FeedbackDto feedbackDto){
+    public ResponseEntity<String> editFeedback(@PathVariable("userId") Long userId,
+                                               @PathVariable("feedbackId") Long feedbackId,
+                                               @RequestBody @Valid FeedbackDto feedbackDto){
         feedbackService.editFeedback(feedbackDto, userId, feedbackId);
-        return "Feedback successfully edited!";
+        return new ResponseEntity<>("Feedback successfully edited!", HttpStatus.OK);
     }
 
     @DeleteMapping("/{userId}/feedbacks/{feedbackId}")
-    public String deleteFeedback(@PathVariable("userId") Long userId,
-                                 @PathVariable("feedbackId") Long feedbackId){
+    public ResponseEntity<String> deleteFeedback(@PathVariable("userId") Long userId,
+                                                 @PathVariable("feedbackId") Long feedbackId){
         feedbackService.deleteFeedback(userId, feedbackId);
-        return "Feedback successfully deleted!";
+        return new ResponseEntity<>("Feedback successfully deleted!", HttpStatus.NO_CONTENT);
     }
 }
