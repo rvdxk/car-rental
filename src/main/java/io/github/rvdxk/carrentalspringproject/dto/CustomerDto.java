@@ -37,8 +37,8 @@ public class CustomerDto {
     @NotEmpty(message = "Please, enter the street")
 
     private String street;
-    private Long houseNumber;
-    private String apartmentNumber;
+    private int houseNumber;
+    private int apartmentNumber;
     private String city;
     private String postalCode;
     private Country country;

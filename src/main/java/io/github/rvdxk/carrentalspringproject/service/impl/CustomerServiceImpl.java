@@ -58,7 +58,7 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public void updateCustomer(CustomerDto customerDto, Long id) {
-        customerRepository.findById(id)
+         customerRepository.findById(id)
                 .orElseThrow(()-> new ResourceNotFoundException("Customer with id " + id + " not found"));
         customerDto.setId(id);
 

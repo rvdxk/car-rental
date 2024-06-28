@@ -40,8 +40,8 @@ public class Customer {
     private Date dateOfBirth;
 
     private String street;
-    private Long houseNumber;
-    private String apartmentNumber;
+    private int houseNumber;
+    private int apartmentNumber;
     private String city;
     private String postalCode;
 
