@@ -1,7 +1,6 @@
 package io.github.rvdxk.carrentalspringproject.service.impl;
 
 import io.github.rvdxk.carrentalspringproject.constant.PaymentStatus;
-import io.github.rvdxk.carrentalspringproject.constant.RentalStatus;
 import io.github.rvdxk.carrentalspringproject.dto.PaymentDto;
 import io.github.rvdxk.carrentalspringproject.entity.Payment;
 import io.github.rvdxk.carrentalspringproject.entity.RentalInfo;
@@ -105,7 +104,7 @@ public class PaymentServiceImpl implements PaymentService {
         LocalDate paymentDate = payment.getPaymentDate();
         double totalCost = payment.getTotalCost();
 
-        if (paymentDate.isBefore(now) || paymentDate.isEqual(now)) {
+        if (paymentDate.isBefore(now) && totalCost > 0 || paymentDate.isEqual(now) && totalCost > 0) {
             return PaymentStatus.COMPLETED;
         }
         if (paymentDate.isAfter(now)) {
@@ -113,8 +112,12 @@ public class PaymentServiceImpl implements PaymentService {
         }
         if (totalCost == 0) {
             return PaymentStatus.CANCELLED;
-        } else {
-            return PaymentStatus.FAILED;
         }
+        if (totalCost < 0) {
+            return PaymentStatus.INVALID;
+        }
+
+        return payment.getPaymentStatus();
+
     }
 }
