@@ -21,7 +21,6 @@ import java.util.stream.Collectors;
 public class RentalInfoServiceImpl implements RentalInfoService {
 
     private final RentalInfoRepository rentalInfoRepository;
-    private final PaymentServiceImpl paymentService;
 
 
     @Override
@@ -53,6 +52,11 @@ public class RentalInfoServiceImpl implements RentalInfoService {
         RentalInfo updateInfo = rentalInfoRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Rental information with id: " + id + " not found"));
 
+        updateInfo.setId(id);
+        updateInfo.setCarId(rentalInfo.getCarId());
+        updateInfo.setCarLocationId(rentalInfo.getCarLocationId());
+        updateInfo.setCustomerId(rentalInfo.getCustomerId());
+        updateInfo.setPayment(rentalInfo.getPayment());
         updateInfo.setRentalDate(rentalInfo.getRentalDate());
         updateInfo.setReturnDate(rentalInfo.getReturnDate());
         updateInfo.setRentalStatus(addRentalStatus(rentalInfo));
@@ -80,17 +84,13 @@ public class RentalInfoServiceImpl implements RentalInfoService {
         if (rentalDate == null || returnDate == null) {
             return RentalStatus.AVAILABLE;
         }
-        if (rentalDate.isEqual(now) || returnDate.isEqual(now)) {
+        if ((rentalDate.isEqual(now)) ||
+                (now.isAfter(rentalDate) && now.isBefore(returnDate))) {
             return RentalStatus.IN_PROGRESS;
         }
-        if (rentalDate.isAfter(now)) {
-            return RentalStatus.RESERVED;
-        } else if (rentalDate.isBefore(now) && returnDate.isAfter(now)) {
-            return RentalStatus.IN_PROGRESS;
-        } else if (returnDate.isBefore(now)) {
-            return RentalStatus.EXPIRED;
-        } else {
+        if ((now.isAfter(returnDate)) && (now.isAfter(rentalDate))) {
             return RentalStatus.COMPLETED;
         }
+        return RentalStatus.UNKNOWN;
     }
 }
