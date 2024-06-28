@@ -134,7 +134,7 @@ class CustomerServiceImplTest {
     }
 
     @Test
-    void updateCustomer() throws ParseException {
+    void updateCustomer_ShouldUpdateGeneralCustomerInformation() throws ParseException {
 
         CustomerDto updateCustomerDto = CustomerDto.builder()
                 .id(1L)
@@ -170,7 +170,7 @@ class CustomerServiceImplTest {
     }
 
     @Test
-    void deleteCustomer() {
+    void deleteCustomer_ShouldCompletelyRemoveCustomer() {
         when(customerRepository.findById(customer1.getId())).thenReturn(Optional.of(customer1));
 
         customerService.deleteCustomer(customer1.getId());
