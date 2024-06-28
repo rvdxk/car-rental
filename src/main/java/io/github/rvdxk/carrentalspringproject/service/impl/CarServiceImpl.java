@@ -64,8 +64,7 @@ public class CarServiceImpl implements CarService {
     }
 
     @Override
-    public void addCar(CarDto carDto) {
-        Car car = CarMapper.mapToCar(carDto);
+    public void addCar(Car car) {
         carRepository.save(car);
     }
 

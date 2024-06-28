@@ -3,16 +3,14 @@ package io.github.rvdxk.carrentalspringproject.entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.github.rvdxk.carrentalspringproject.constant.Country;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
+@Builder
 @Table(name = "car_location")
 public class CarLocation {
 

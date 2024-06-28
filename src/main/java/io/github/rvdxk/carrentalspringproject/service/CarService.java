@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface CarService {
     List<Car> findAllCars();
-    void addCar(CarDto carDto);
+    void addCar(Car car);
     void addCarParams(Long id, CarParams carParams);
     void addCarLocation(Long id, CarLocation carLocation);
     CarDto findCarById(Long id);
