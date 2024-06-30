@@ -61,7 +61,7 @@ class AuthenticationServiceTest {
 
     }
     @Test
-    void registerUser() {
+    void registerUser_ShouldRegisterUserWithRoleUserAndGenerateToken() {
 
         RegisterRequest request = new RegisterRequest("John", "Doe", "john.doe@example.com", "password1");
 
@@ -77,7 +77,7 @@ class AuthenticationServiceTest {
     }
 
     @Test
-    void registerAdmin() {
+    void registerAdmin_ShouldRegisterAdminWithRoleAdminAndGenerateToken() {
         RegisterRequest request = new RegisterRequest("Jane", "Doe", "jane.doe@example.com", "password2");
 
         when(passwordEncoder.encode(request.getPassword())).thenReturn("encoded_password");
@@ -92,7 +92,7 @@ class AuthenticationServiceTest {
     }
 
     @Test
-    void login() {
+    void login_ShouldAuthenticateUsersAndGenerateNewTokenForThem() {
     AuthenticationRequest request = new AuthenticationRequest("john.doe@example.com", "password1");
 
     when(userRepository.findByEmail(request.getEmail())).thenReturn(Optional.of(user1));
