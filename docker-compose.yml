@@ -1,0 +1,28 @@
+version: '3.8'
+
+services:
+  mysql_local:
+    image: mysql:8.0
+    container_name: carrental_mysql_local
+    environment:
+      MYSQL_ROOT_PASSWORD: local
+      MYSQL_DATABASE: carrental_local
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data_local:/var/lib/mysql
+
+  mysql_prod:
+    image: mysql:8.0
+    container_name: carrental_mysql_prod
+    environment:
+      MYSQL_ROOT_PASSWORD: prod
+      MYSQL_DATABASE: carrental_prod
+    ports:
+      - "3307:3306"
+    volumes:
+      - mysql_data_prod:/var/lib/mysql
+
+volumes:
+  mysql_data_local: {}
+  mysql_data_prod: {}
