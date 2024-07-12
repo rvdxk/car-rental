@@ -1,5 +1,6 @@
 package io.github.rvdxk.carrentalspringproject.security.jwt;
 
+import io.github.cdimascio.dotenv.Dotenv;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -17,7 +18,14 @@ import java.util.function.Function;
 @Service
 public class JwtService {
 
-    private static final String SECRET_KEY = "722b3034632a6835202c5f78385540662b7a21636e394c5b514268593c";
+    private static final Dotenv dotenv = Dotenv.load();
+    private static final String SECRET_KEY = dotenv.get("SECRET_KEY");
+
+    public JwtService() {
+        if (SECRET_KEY == null) {
+            throw new IllegalStateException("SECRET_KEY environment variable is not set");
+        }
+    }
 
     public String extractUsername(String token) {
         return extractClaim(token, Claims::getSubject);

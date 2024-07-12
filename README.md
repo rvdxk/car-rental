@@ -73,6 +73,10 @@ Administrators have access to all features and endpoints after logging in.
 Check out from Version Control or File -> New -> Project from Version Control.
 3. Enter the repository URL (https://github.com/rvdxk/car-rental), clone, and select a local directory.  
 
+### Setting environment variables:
+1. In the root directory of your project, create a new file named `.env`
+2. Open the `.env` file and add the following line: SECRET_KEY=722b3034632a6835202c5f78385540662b7a21636e394c5b514268593c.
+
 ### Setting up the Project in IntelliJ IDEA:
 
 1. Maven will detect the project's pom.xml file and update dependencies.
