@@ -23,6 +23,25 @@ services:
     volumes:
       - mysql_data_prod:/var/lib/mysql
 
+  app:
+    build: .
+    container_name: carrental_app
+    environment:
+      DB_HOST_LOCAL: mysql_local
+      DB_NAME_LOCAL: carrental_local
+      DB_USER_LOCAL: root
+      DB_PASS_LOCAL: local
+      DB_HOST_PROD: mysql_prod
+      DB_NAME_PROD: carrental_prod
+      DB_USER_PROD: root
+      DB_PASS_PROD: prod
+      SECRET_KEY: ${SECRET_KEY}
+    ports:
+      - "8080:8080"
+    depends_on:
+      - mysql_local
+      - mysql_prod
+
 volumes:
   mysql_data_local: {}
   mysql_data_prod: {}
