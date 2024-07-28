@@ -1,7 +1,7 @@
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3307/carrental_prod
+    url: jdbc:mysql://mysql_prod:3306/carrental_prod
     username: root
     password: prod
   jpa:
