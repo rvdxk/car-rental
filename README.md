@@ -75,17 +75,16 @@ Check out from Version Control or File -> New -> Project from Version Control.
 
 ### Setting environment variables:
 1. In the root directory of your project, create a new file named `.env`
-2. Open the `.env` file and add the following line: SECRET_KEY=722b3034632a6835202c5f78385540662b7a21636e394c5b514268593c.
+2. Open the `.env` file and add the following line: `SECRET_KEY=722b3034632a6835202c5f78385540662b7a21636e394c5b514268593c`
 
 ### Setting up the Project in IntelliJ IDEA:
 
 1. Maven will detect the project's pom.xml file and update dependencies.
-2. Use IntelliJ's terminal to run "mvn install".
 
 ### Docker integration:
-1. Use IntelliJ's terminal to run "docker pull mysql" 
-2. Next, run "docker-compose up --build".
-3. Run the application by setting Spring Boot's main file "CarRentalSpringProjectApplication" and selecting Run &lt;CarRentalSpringProjectApplication&gt;.
+1. Use IntelliJ's terminal to run `docker pull mysql`
+2. To create and run the container, enter `docker-compose up --build` in the terminal.
+3. The next time you can run the application by setting Spring Boot's main file "CarRentalSpringProjectApplication" and selecting Run &lt;CarRentalSpringProjectApplication&gt;.
 
 ### Testing with Postman:
 
